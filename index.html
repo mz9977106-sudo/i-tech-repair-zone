@@ -1,1715 +1,1205 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="I Tech Repair Zone - Premium Electronics Repair Services in the UK. Specializing in iPhone, MacBooks, Consoles & Micro-soldering.">
-    <meta name="theme-color" content="#030303">
-    <title>I Tech Repair Zone | Next-Gen Electronics Care</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Embedded CSS Styling Engine -->
-    <style>
-        :root {
-            --bg-base: #030303;
-            --bg-surface: #0a0a0c;
-            --bg-card: rgba(18, 18, 22, 0.65);
-            --bg-card-hover: rgba(28, 28, 35, 0.85);
-            
-            --brand-red: #ff2a4b;
-            --brand-red-glow: rgba(255, 42, 75, 0.35);
-            --brand-red-dark: #990017;
-            
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            
-            --border-light: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(255, 42, 75, 0.4);
-            
-            --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-display: 'Space Grotesk', sans-serif;
-
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* --- CSS Reset & Base --- */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-family: var(--font-main);
-            background-color: var(--bg-base);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            position: relative;
-            background: var(--bg-base);
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        /* --- Typography Typography Typography --- */
-        h1, h2, h3, h4, .font-display {
-            font-family: var(--font-display);
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #ffffff 30%, #94a3b8 70%, var(--brand-red) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .gradient-red-text {
-            background: linear-gradient(135deg, #ffffff 0%, var(--brand-red) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* --- Background Canvas Animation Overlay --- */
-        #hero-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        .ambient-glow {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--brand-red-glow) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 0;
-            filter: blur(80px);
-            pointer-events: none;
-        }
-
-        /* --- Layout Container --- */
-        .container {
-            width: 100%;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        section {
-            padding: 8rem 0;
-            position: relative;
-        }
-
-        /* --- Glassmorphism Components --- */
-        .glass-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-light);
-            border-radius: 24px;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-        }
-
-        .glass-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(255, 42, 75, 0.15);
-        }
-
-        .glass-nav {
-            background: rgba(3, 3, 3, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        /* --- Interactive UI Controls --- */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 0.875rem 2rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-            border: none;
-            outline: none;
-        }
-
-        .btn-primary {
-            background: var(--brand-red);
-            color: #ffffff;
-            box-shadow: 0 0 25px var(--brand-red-glow);
-        }
-
-        .btn-primary:hover {
-            background: #ff4563;
-            box-shadow: 0 0 35px rgba(255, 42, 75, 0.6);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-            border: 1px solid var(--border-light);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        /* Ripple Effect */
-        .ripple {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: scale(0);
-            animation: ripple-animation 0.6s linear;
-            pointer-events: none;
-        }
-
-        @keyframes ripple-animation {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-
-        /* --- Navigation --- */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: var(--transition-smooth);
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 80px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 800;
-            font-size: 1.25rem;
-            letter-spacing: -0.02em;
-        }
-
-        .logo-mark {
-            width: 42px;
-            height: 42px;
-            background: linear-gradient(135deg, #111, #222);
-            border: 1px solid var(--border-hover);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            box-shadow: 0 0 15px var(--brand-red-glow);
-        }
-
-        .logo-mark svg {
-            width: 24px;
-            height: 24px;
-            fill: none;
-            stroke: var(--brand-red);
-            stroke-width: 2.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: var(--transition-smooth);
-            position: relative;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--text-primary);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--brand-red);
-            transition: var(--transition-smooth);
-            border-radius: 2px;
-        }
-
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
-        }
-
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        /* Mobile Nav Drawer */
-        .mobile-menu {
-            position: fixed;
-            top: 80px;
-            left: 0;
-            width: 100%;
-            height: calc(100vh - 80px);
-            background: rgba(3, 3, 3, 0.95);
-            backdrop-filter: blur(25px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            transform: translateY(-100%);
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition-smooth);
-            z-index: 999;
-        }
-
-        .mobile-menu.active {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .mobile-menu .nav-link {
-            font-size: 1.5rem;
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            padding-top: 12rem;
-            padding-bottom: 8rem;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.35rem 1rem;
-            border-radius: 9999px;
-            background: rgba(255, 42, 75, 0.1);
-            border: 1px solid rgba(255, 42, 75, 0.25);
-            color: var(--brand-red);
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .hero-title {
-            font-size: 4.25rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.05;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            font-weight: 400;
-        }
-
-        .hero-cta {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            margin-bottom: 4rem;
-        }
-
-        .stats-wrapper {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            padding-top: 2.5rem;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .stat-item .stat-number {
-            font-size: 2.25rem;
-            font-weight: 700;
-            font-family: var(--font-display);
-            color: var(--text-primary);
-        }
-
-        .stat-item .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Tech Visual Model */
-        .hero-visual {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-graphic-card {
-            width: 100%;
-            aspect-ratio: 1/1;
-            max-width: 450px;
-            position: relative;
-            border-radius: 32px;
-            background: radial-gradient(circle at 50% 50%, rgba(255, 42, 75, 0.08) 0%, transparent 70%), var(--bg-card);
-            border: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-        }
-
-        .chip-graphic {
-            width: 180px;
-            height: 180px;
-            background: #111;
-            border: 2px solid var(--brand-red);
-            border-radius: 24px;
-            box-shadow: 0 0 40px var(--brand-red-glow);
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .chip-inner {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--brand-red), var(--brand-red-dark));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(2deg); }
-        }
-
-        /* --- Section Header Helper --- */
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 5rem auto;
-        }
-
-        .section-title {
-            font-size: 2.75rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        /* --- About Section --- */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-cards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .about-mini-card {
-            padding: 2rem;
-            border-radius: 20px;
-        }
-
-        .about-mini-card svg {
-            width: 32px;
-            height: 32px;
-            stroke: var(--brand-red);
-            margin-bottom: 1rem;
-        }
-
-        /* --- Services Section --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            padding: 2.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-        }
-
-        .service-icon-wrapper {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
-            background: rgba(255, 42, 75, 0.08);
-            border: 1px solid rgba(255, 42, 75, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            transition: var(--transition-smooth);
-        }
-
-        .service-card:hover .service-icon-wrapper {
-            background: var(--brand-red);
-            transform: scale(1.05);
-        }
-
-        .service-card:hover .service-icon-wrapper svg {
-            stroke: #ffffff;
-        }
-
-        .service-icon-wrapper svg {
-            width: 28px;
-            height: 28px;
-            stroke: var(--brand-red);
-            fill: none;
-            stroke-width: 2;
-            transition: var(--transition-smooth);
-        }
-
-        .service-title {
-            font-size: 1.35rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .service-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* --- Features Section --- */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            padding: 2.5rem;
-            position: relative;
-        }
-
-        .feature-number {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.05);
-            position: absolute;
-            top: 1.5rem;
-            right: 2rem;
-        }
-
-        /* --- Brands Carousel Slider --- */
-        .brands-slider {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            padding: 2rem 0;
-            mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
-            -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
-        }
-
-        .brands-track {
-            display: flex;
-            gap: 4rem;
-            width: max-content;
-            animation: scroll 25s linear infinite;
-        }
-
-        .brand-item {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: -0.02em;
-            transition: var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .brand-item:hover {
-            color: var(--text-primary);
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* --- Timeline Section --- */
-        .timeline {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 2px;
-            background: linear-gradient(180deg, var(--brand-red) 0%, rgba(255, 42, 75, 0.1) 100%);
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            display: flex;
-            justify-content: flex-end;
-            padding-right: 30px;
-            position: relative;
-            margin-bottom: 3rem;
-            width: 50%;
-        }
-
-        .timeline-item:nth-child(even) {
-            align-self: flex-end;
-            justify-content: flex-start;
-            padding-left: 30px;
-            padding-right: 0;
-            margin-left: 50%;
-        }
-
-        .timeline-dot {
-            width: 20px;
-            height: 20px;
-            background: var(--bg-base);
-            border: 3px solid var(--brand-red);
-            border-radius: 50%;
-            position: absolute;
-            top: 20px;
-            right: -10px;
-            z-index: 2;
-            box-shadow: 0 0 10px var(--brand-red);
-        }
-
-        .timeline-item:nth-child(even) .timeline-dot {
-            left: -10px;
-        }
-
-        .timeline-content {
-            padding: 2rem;
-            width: 100%;
-        }
-
-        /* --- Booking Form Section --- */
-        .booking-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 3.5rem;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-group.full-width {
-            grid-column: span 2;
-        }
-
-        .form-label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-        }
-
-        .form-input, .form-select, .form-textarea {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            padding: 1rem 1.25rem;
-            color: var(--text-primary);
-            font-family: var(--font-main);
-            font-size: 1rem;
-            transition: var(--transition-smooth);
-            outline: none;
-        }
-
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            border-color: var(--brand-red);
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 15px rgba(255, 42, 75, 0.2);
-        }
-
-        .form-select option {
-            background: var(--bg-surface);
-            color: var(--text-primary);
-        }
-
-        /* --- Reviews Section --- */
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .review-card {
-            padding: 2rem;
-        }
-
-        .stars {
-            color: #ffb800;
-            display: flex;
-            gap: 0.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .reviewer-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .reviewer-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #333, #111);
-            border: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: var(--brand-red);
-        }
-
-        /* --- FAQ Accordion --- */
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .faq-item {
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .faq-header {
-            padding: 1.5rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1.1rem;
-            user-select: none;
-        }
-
-        .faq-icon {
-            transition: var(--transition-smooth);
-        }
-
-        .faq-item.active .faq-icon {
-            transform: rotate(180deg);
-            color: var(--brand-red);
-        }
-
-        .faq-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease;
-            padding: 0 2rem;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .faq-item.active .faq-body {
-            max-height: 200px;
-            padding: 0 2rem 1.5rem 2rem;
-        }
-
-        /* --- Footer --- */
-        footer {
-            background: #020202;
-            border-top: 1px solid var(--border-light);
-            padding: 5rem 0 2rem 0;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr;
-            gap: 4rem;
-            margin-bottom: 4rem;
-        }
-
-        .footer-desc {
-            color: var(--text-secondary);
-            margin-top: 1rem;
-            font-size: 0.95rem;
-            max-width: 320px;
-        }
-
-        .footer-title {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .footer-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: var(--transition-smooth);
-            font-size: 0.9rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--brand-red);
-        }
-
-        .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        /* Floating WhatsApp Action */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            background: #25d366;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-            z-index: 990;
-            transition: var(--transition-smooth);
-            text-decoration: none;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1) translateY(-50%);
-            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.6);
-        }
-
-        .whatsapp-float svg {
-            width: 32px;
-            height: 32px;
-            fill: currentColor;
-        }
-
-        /* Scroll Reveal Animation Framework */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- Mobile Responsive Enhancements --- */
-        @media (max-width: 992px) {
-            .hero-grid { grid-template-columns: 1fr; text-align: center; }
-            .hero-subtitle { margin-left: auto; margin-right: auto; }
-            .hero-cta { justify-content: center; }
-            .stats-wrapper { max-width: 500px; margin: 0 auto; }
-            .about-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-            .timeline::before { left: 20px; }
-            .timeline-item { width: 100%; padding-left: 50px; padding-right: 0; }
-            .timeline-item:nth-child(even) { margin-left: 0; padding-left: 50px; }
-            .timeline-dot { left: 10px !important; }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links, .nav-btn-desktop { display: none; }
-            .mobile-toggle { display: block; }
-            .hero-title { font-size: 2.75rem; }
-            .form-grid { grid-template-columns: 1fr; }
-            .form-group.full-width { grid-column: span 1; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .section-title { font-size: 2rem; }
-            .booking-container { padding: 1.5rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>I Tech Repair Zone | Premium Electronics Repair, UK</title>
+<meta name="description" content="I Tech Repair Zone — certified, same-day repair for phones, laptops, tablets and gaming consoles across the UK. Book online or on WhatsApp in seconds.">
+<meta name="theme-color" content="#0a0a0b">
+
+<style>
+/* =========================================================
+   0. ROOT TOKENS — the brand system
+   Black / White / Red, built around a "circuit diagnostic"
+   visual language: thin scanning lines, PCB-grid texture,
+   pulse nodes. This is the one signature motif used
+   throughout instead of generic blob gradients.
+========================================================= */
+:root{
+  --black:#0a0a0b;
+  --black-soft:#0f0f11;
+  --charcoal:#1a1a1d;
+  --charcoal-2:#232326;
+  --white:#ffffff;
+  --off-white:#f6f6f8;
+  --red:#e0122a;
+  --red-2:#ff3b4e;
+  --red-dim:#8a0d1c;
+  --grey:#9a9aa2;
+  --grey-light:#c9c9cf;
+  --grey-dark:#5c5c63;
+  --line:rgba(255,255,255,.09);
+  --line-dark:rgba(10,10,11,.08);
+  --glass-bg:rgba(255,255,255,.045);
+  --glass-bg-strong:rgba(255,255,255,.07);
+  --glass-border:rgba(255,255,255,.10);
+  --r-xl:32px;
+  --r-lg:24px;
+  --r-md:16px;
+  --r-sm:10px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --font-display: -apple-system, "SF Pro Display", "Segoe UI Semibold", "Helvetica Neue", Arial, sans-serif;
+  --font-body: -apple-system, "SF Pro Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+}
+
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:var(--font-body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  font-size:16px;
+}
+
+img{max-width:100%; display:block;}
+a{color:inherit; text-decoration:none;}
+ul{list-style:none;}
+button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
+input,select,textarea{font-family:inherit; font-size:1rem; color:inherit;}
+:focus-visible{outline:2px solid var(--red-2); outline-offset:3px;}
+.container{width:min(1240px, 92%); margin-inline:auto;}
+section{position:relative;}
+
+/* eyebrow / kicker */
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--red-2); font-weight:600; margin-bottom:18px;
+}
+.eyebrow::before{
+  content:""; width:7px; height:7px; border-radius:50%;
+  background:var(--red-2); box-shadow:0 0 0 3px rgba(255,59,78,.18), 0 0 12px rgba(255,59,78,.7);
+  animation:pulseDot 2s ease-in-out infinite;
+}
+@keyframes pulseDot{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.55; transform:scale(1.25);}}
+
+.section-head{max-width:640px; margin-bottom:64px;}
+.section-head.center{margin-inline:auto; text-align:center;}
+h1,h2,h3,h4{font-family:var(--font-display); font-weight:800; letter-spacing:-.02em; line-height:1.05;}
+h2{font-size:clamp(2rem, 4.4vw, 3.1rem); color:var(--white);}
+.on-light h2, .on-light .eyebrow-alt{color:var(--black);}
+.section-sub{color:var(--grey-light); font-size:1.05rem; max-width:52ch;}
+.on-light .section-sub{color:var(--grey-dark);}
+
+/* =========================================================
+   1. NAVBAR
+========================================================= */
+.navbar{
+  position:fixed; top:0; left:0; width:100%; z-index:1000;
+  padding:20px 0;
+  transition:padding .4s var(--ease), background .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease);
+  border-bottom:1px solid transparent;
+}
+.navbar.scrolled{
+  padding:12px 0;
+  background:rgba(10,10,11,.72);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  border-bottom-color:var(--line);
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; gap:24px;}
+.brand{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:800; font-size:1.15rem; letter-spacing:-.01em;}
+.brand-mark{width:38px; height:38px; flex-shrink:0;}
+.brand-name{white-space:nowrap;}
+.brand-name b{color:var(--red-2);}
+.nav-links{display:flex; align-items:center; gap:36px;}
+.nav-links a{
+  font-size:.9rem; font-weight:600; color:var(--grey-light); position:relative; padding:6px 0;
+  transition:color .25s var(--ease);
+}
+.nav-links a::after{
+  content:""; position:absolute; left:0; bottom:0; height:1px; width:0%;
+  background:linear-gradient(90deg, var(--red-2), transparent);
+  transition:width .3s var(--ease);
+}
+.nav-links a:hover{color:var(--white);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{
+  display:flex; align-items:center; gap:14px;
+}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  padding:13px 26px; border-radius:100px; font-weight:700; font-size:.88rem;
+  letter-spacing:.01em; position:relative; overflow:hidden; white-space:nowrap;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease);
+  isolation:isolate;
+}
+.btn-primary{
+  background:linear-gradient(135deg, var(--red-2), var(--red) 60%, var(--red-dim));
+  color:var(--white); box-shadow:0 10px 26px -8px rgba(224,18,42,.65), inset 0 1px 0 rgba(255,255,255,.25);
+}
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 34px -8px rgba(224,18,42,.8), inset 0 1px 0 rgba(255,255,255,.3);}
+.btn-ghost{
+  background:var(--glass-bg); border:1px solid var(--glass-border); color:var(--white);
+  backdrop-filter:blur(10px);
+}
+.btn-ghost:hover{ background:var(--glass-bg-strong); transform:translateY(-2px);}
+.btn-block{width:100%;}
+.btn .ripple{
+  position:absolute; border-radius:50%; transform:scale(0); background:rgba(255,255,255,.45);
+  animation:ripple .6s var(--ease-out); pointer-events:none;
+}
+@keyframes ripple{ to{ transform:scale(3.2); opacity:0; } }
+.btn svg{width:18px; height:18px; flex-shrink:0;}
+
+.nav-toggle{ display:none; width:42px; height:42px; border-radius:12px; align-items:center; justify-content:center; background:var(--glass-bg); border:1px solid var(--glass-border);}
+.nav-toggle span{display:block; width:18px; height:2px; background:var(--white); position:relative; transition:.3s;}
+.nav-toggle span::before,.nav-toggle span::after{content:""; position:absolute; width:18px; height:2px; background:var(--white); left:0; transition:.3s;}
+.nav-toggle span::before{top:-6px;}
+.nav-toggle span::after{top:6px;}
+.nav-toggle.active span{background:transparent;}
+.nav-toggle.active span::before{transform:rotate(45deg); top:0;}
+.nav-toggle.active span::after{transform:rotate(-45deg); top:0;}
+
+.mobile-menu{
+  position:fixed; inset:0 0 auto 0; top:0; z-index:999; background:rgba(10,10,11,.98);
+  backdrop-filter:blur(20px);
+  padding:110px 8% 40px; transform:translateY(-110%); transition:transform .5s var(--ease);
+  display:flex; flex-direction:column; gap:28px; height:100dvh; overflow-y:auto;
+}
+.mobile-menu.active{transform:translateY(0);}
+.mobile-menu a{font-size:1.5rem; font-weight:700; font-family:var(--font-display);}
+.mobile-menu .btn{margin-top:12px; width:100%;}
+
+/* =========================================================
+   2. HERO — PCB / circuit diagnostic backdrop
+========================================================= */
+.hero{
+  min-height:100dvh; display:flex; align-items:center; padding:150px 0 90px;
+  background:
+    radial-gradient(1100px 620px at 78% 8%, rgba(224,18,42,.16), transparent 60%),
+    radial-gradient(900px 700px at 10% 100%, rgba(224,18,42,.08), transparent 55%),
+    var(--black);
+  overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute; inset:0; z-index:0; opacity:.5;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 30%, black 10%, transparent 75%);
+  animation:gridDrift 40s linear infinite;
+}
+@keyframes gridDrift{ from{ background-position:0 0, 0 0; } to{ background-position:56px 56px, -56px 56px; } }
+.hero-scan{
+  position:absolute; left:0; right:0; height:120px; z-index:1; pointer-events:none;
+  background:linear-gradient(180deg, transparent, rgba(255,59,78,.12), transparent);
+  animation:scanSweep 7s ease-in-out infinite;
+}
+@keyframes scanSweep{ 0%{ top:-10%;} 100%{ top:105%;} }
+.hero .container{position:relative; z-index:2;}
+.hero-inner{max-width:840px; margin-inline:auto; text-align:center;}
+.hero-mark{
+  width:74px; height:74px; margin:0 auto 30px; position:relative;
+}
+.hero-mark svg{width:100%; height:100%; filter:drop-shadow(0 0 24px rgba(224,18,42,.55));}
+h1.hero-title{
+  font-size:clamp(2.4rem, 6vw, 4.4rem); letter-spacing:-.03em; margin-bottom:22px;
+}
+h1.hero-title .accent{
+  background:linear-gradient(120deg, var(--red-2), #ff8a94 55%, var(--red-2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero-sub{
+  font-size:clamp(1rem, 1.6vw, 1.2rem); color:var(--grey-light); max-width:60ch; margin:0 auto 40px;
+}
+.hero-actions{display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:70px;}
+.hero-stats{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden;
+}
+.stat{
+  background:rgba(255,255,255,.02); padding:28px 18px; text-align:center;
+  backdrop-filter:blur(6px);
+}
+.stat b{
+  display:block; font-family:var(--font-display); font-size:clamp(1.6rem,3vw,2.4rem); font-weight:800;
+  color:var(--white); letter-spacing:-.02em;
+}
+.stat b .unit{color:var(--red-2);}
+.stat span{font-size:.82rem; color:var(--grey); letter-spacing:.03em;}
+
+/* =========================================================
+   3. REVEAL ANIMATION UTILITIES
+========================================================= */
+[data-reveal]{opacity:0; transition:opacity .9s var(--ease-out), transform .9s var(--ease-out), filter .9s var(--ease-out);}
+[data-reveal="fade"]{transform:translateY(26px);}
+[data-reveal="slide-left"]{transform:translateX(-40px);}
+[data-reveal="slide-right"]{transform:translateX(40px);}
+[data-reveal="scale"]{transform:scale(.92); }
+[data-reveal="glow"]{filter:brightness(.6);}
+[data-reveal].in-view{opacity:1; transform:translate(0,0) scale(1); filter:brightness(1);}
+
+/* =========================================================
+   4. ABOUT — light section
+========================================================= */
+.on-light{background:var(--off-white); color:var(--black);}
+.about{padding:130px 0;}
+.about-top{display:grid; grid-template-columns:1.1fr .9fr; gap:70px; align-items:end; margin-bottom:70px;}
+.about-top p{color:var(--grey-dark); font-size:1.05rem;}
+.about-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+.about-card{
+  background:var(--white); border:1px solid var(--line-dark); border-radius:var(--r-md);
+  padding:32px 26px; transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+  position:relative; overflow:hidden;
+}
+.about-card::before{
+  content:""; position:absolute; top:0; left:-100%; width:60%; height:2px;
+  background:linear-gradient(90deg, transparent, var(--red-2), transparent);
+  transition:left .6s var(--ease);
+}
+.about-card:hover::before{left:120%;}
+.about-card:hover{transform:translateY(-8px); box-shadow:0 26px 50px -20px rgba(0,0,0,.18); border-color:rgba(224,18,42,.25);}
+.about-card .icon-wrap{
+  width:50px; height:50px; border-radius:14px; background:linear-gradient(135deg,#fff, #f0f0f2);
+  border:1px solid var(--line-dark); display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+  box-shadow:inset 0 1px 0 #fff;
+}
+.about-card svg{width:24px; height:24px; stroke:var(--red);}
+.about-card h4{font-size:1.05rem; margin-bottom:10px;}
+.about-card p{color:var(--grey-dark); font-size:.92rem;}
+
+/* =========================================================
+   5. SERVICES — dark
+========================================================= */
+.services{padding:130px 0; background:var(--black);}
+.services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+.svc-card{
+  background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--r-lg);
+  padding:36px 30px; position:relative; overflow:hidden;
+  transition:transform .45s var(--ease), border-color .45s var(--ease), background .45s var(--ease);
+}
+.svc-card::after{
+  content:""; position:absolute; inset:0; border-radius:inherit; padding:1px;
+  background:linear-gradient(140deg, rgba(255,59,78,0), rgba(255,59,78,.5), rgba(255,59,78,0));
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  opacity:0; transition:opacity .5s var(--ease);
+}
+.svc-card:hover{transform:translateY(-10px); background:var(--glass-bg-strong);}
+.svc-card:hover::after{opacity:1;}
+.svc-num{
+  font-family:var(--font-mono); font-size:.72rem; color:var(--grey-dark); color:var(--red-2);
+  letter-spacing:.1em; opacity:.7; margin-bottom:18px; display:block;
+}
+.svc-icon{
+  width:52px; height:52px; border-radius:16px; margin-bottom:22px;
+  background:linear-gradient(135deg, rgba(224,18,42,.22), rgba(224,18,42,.03));
+  border:1px solid rgba(224,18,42,.3); display:flex; align-items:center; justify-content:center;
+}
+.svc-icon svg{width:26px; height:26px; stroke:var(--red-2);}
+.svc-card h4{font-size:1.2rem; margin-bottom:12px;}
+.svc-card p{color:var(--grey-light); font-size:.93rem;}
+
+/* =========================================================
+   6. WHY CHOOSE US
+========================================================= */
+.why{padding:130px 0; background:var(--off-white); color:var(--black);}
+.why-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+.why-card{
+  display:flex; gap:18px; align-items:flex-start; padding:28px; border-radius:var(--r-md);
+  background:var(--white); border:1px solid var(--line-dark);
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.why-card:hover{ transform:translateY(-6px); box-shadow:0 20px 40px -18px rgba(0,0,0,.15); }
+.why-icon{
+  width:44px; height:44px; border-radius:12px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  background:var(--black); box-shadow:0 6px 16px -6px rgba(0,0,0,.4);
+}
+.why-icon svg{width:22px; height:22px; stroke:var(--red-2);}
+.why-card h4{font-size:1.02rem; margin-bottom:6px;}
+.why-card p{font-size:.88rem; color:var(--grey-dark);}
+
+/* =========================================================
+   7. BRANDS — marquee
+========================================================= */
+.brands{padding:90px 0; background:var(--black); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.brands .section-head{margin-bottom:44px;}
+.marquee{ width:100%; overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);}
+.marquee-track{display:flex; width:max-content; gap:16px; animation:scrollX 32s linear infinite;}
+.marquee:hover .marquee-track{animation-play-state:paused;}
+@keyframes scrollX{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+.brand-chip{
+  flex-shrink:0; padding:18px 34px; border-radius:100px; border:1px solid var(--glass-border);
+  background:var(--glass-bg); font-family:var(--font-display); font-weight:700; font-size:1.05rem;
+  color:var(--grey-light); filter:grayscale(1); opacity:.6; transition:.4s var(--ease); white-space:nowrap;
+}
+.brand-chip:hover{ filter:grayscale(0); opacity:1; color:var(--white); border-color:rgba(224,18,42,.4); background:var(--glass-bg-strong); }
+
+/* =========================================================
+   8. REPAIR PROCESS — timeline
+========================================================= */
+.process{padding:130px 0; background:var(--black);}
+.timeline{ display:grid; grid-template-columns:repeat(5,1fr); gap:0; position:relative; }
+.timeline::before{
+  content:""; position:absolute; top:27px; left:10%; right:10%; height:1px;
+  background:linear-gradient(90deg, transparent, var(--line) 10%, var(--line) 90%, transparent);
+}
+.tl-step{ position:relative; text-align:center; padding:0 14px; }
+.tl-dot{
+  width:56px; height:56px; border-radius:50%; margin:0 auto 26px; position:relative; z-index:2;
+  display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-weight:700;
+  background:var(--charcoal); border:1px solid var(--glass-border); color:var(--red-2);
+  transition:.4s var(--ease); box-shadow:0 0 0 8px var(--black);
+}
+.tl-step.in-view .tl-dot{background:linear-gradient(135deg,var(--red-2),var(--red)); color:#fff; box-shadow:0 0 0 8px var(--black), 0 0 24px rgba(224,18,42,.6);}
+.tl-step h4{font-size:.98rem; margin-bottom:8px;}
+.tl-step p{font-size:.82rem; color:var(--grey);}
+
+/* =========================================================
+   9. BOOKING FORM
+========================================================= */
+.booking{
+  padding:130px 0; position:relative;
+  background:
+    radial-gradient(700px 420px at 15% 10%, rgba(224,18,42,.12), transparent 60%),
+    var(--black-soft);
+}
+.booking-wrap{ display:grid; grid-template-columns:.85fr 1.15fr; gap:60px; align-items:start; }
+.booking-info h2{margin-bottom:20px;}
+.booking-info p{color:var(--grey-light); margin-bottom:28px;}
+.booking-points{display:flex; flex-direction:column; gap:16px;}
+.booking-point{display:flex; align-items:center; gap:12px; font-size:.92rem; color:var(--grey-light);}
+.booking-point svg{width:20px; height:20px; stroke:var(--red-2); flex-shrink:0;}
+.book-form{
+  background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--r-xl);
+  padding:44px; backdrop-filter:blur(20px); box-shadow:0 30px 80px -30px rgba(0,0,0,.6);
+}
+.book-form h3{font-size:1.5rem; margin-bottom:6px;}
+.book-form .form-note{color:var(--grey); font-size:.85rem; margin-bottom:30px;}
+.field{margin-bottom:20px;}
+.field label{display:block; font-size:.8rem; font-weight:600; color:var(--grey-light); margin-bottom:8px; letter-spacing:.02em;}
+.field input, .field select, .field textarea{
+  width:100%; padding:14px 16px; border-radius:var(--r-sm); background:rgba(255,255,255,.04);
+  border:1px solid var(--glass-border); color:var(--white); transition:.3s var(--ease);
+}
+.field input::placeholder, .field textarea::placeholder{color:var(--grey-dark);}
+.field input:focus, .field select:focus, .field textarea:focus{ background:rgba(255,255,255,.07); border-color:var(--red-2); box-shadow:0 0 0 4px rgba(224,18,42,.15);}
+.field textarea{resize:vertical; min-height:96px;}
+.field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.form-error{color:var(--red-2); font-size:.78rem; margin-top:6px; display:none;}
+.form-status{margin-top:18px; font-size:.85rem; color:var(--grey-light); display:none;}
+
+/* floating whatsapp */
+.wa-float{
+  position:fixed; right:22px; bottom:22px; z-index:900; width:60px; height:60px; border-radius:50%;
+  background:linear-gradient(135deg,#22d366,#1aa64d); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 14px 30px -8px rgba(34,211,102,.55); transition:transform .35s var(--ease);
+}
+.wa-float:hover{transform:scale(1.08);}
+.wa-float::before{
+  content:""; position:absolute; inset:-6px; border-radius:50%; border:2px solid rgba(34,211,102,.5);
+  animation:waPulse 2.4s ease-out infinite;
+}
+@keyframes waPulse{ 0%{transform:scale(.9); opacity:1;} 100%{transform:scale(1.5); opacity:0;} }
+.wa-float svg{width:30px; height:30px; fill:#fff; position:relative;}
+
+/* =========================================================
+   10. REVIEWS
+========================================================= */
+.reviews{padding:130px 0; background:var(--black);}
+.reviews-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+.review-card{
+  background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--r-lg);
+  padding:32px; transition:.4s var(--ease);
+}
+.review-card:hover{ transform:translateY(-6px); background:var(--glass-bg-strong); }
+.stars{display:flex; gap:4px; margin-bottom:18px;}
+.stars svg{width:16px; height:16px; fill:var(--red-2); animation:twinkle 2.6s ease-in-out infinite;}
+.stars svg:nth-child(2){animation-delay:.15s;}
+.stars svg:nth-child(3){animation-delay:.3s;}
+.stars svg:nth-child(4){animation-delay:.45s;}
+.stars svg:nth-child(5){animation-delay:.6s;}
+@keyframes twinkle{ 0%,100%{opacity:1;} 50%{opacity:.45;} }
+.review-card p.quote{color:var(--grey-light); font-size:.95rem; margin-bottom:22px;}
+.reviewer{display:flex; align-items:center; gap:12px;}
+.reviewer .avatar{
+  width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--red-2),var(--red-dim));
+  display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; flex-shrink:0;
+}
+.reviewer b{display:block; font-size:.9rem;}
+.reviewer span{font-size:.78rem; color:var(--grey);}
+
+/* =========================================================
+   11. FAQ — accordion
+========================================================= */
+.faq{padding:130px 0; background:var(--off-white); color:var(--black);}
+.faq-list{max-width:820px; margin-inline:auto; display:flex; flex-direction:column; gap:14px;}
+.faq-item{background:var(--white); border:1px solid var(--line-dark); border-radius:var(--r-md); overflow:hidden;}
+.faq-q{
+  width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px;
+  padding:22px 26px; font-weight:700; font-size:1rem; text-align:left;
+}
+.faq-q .plus{
+  width:26px; height:26px; border-radius:50%; border:1px solid var(--line-dark); flex-shrink:0; position:relative;
+  transition:transform .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease);
+}
+.faq-q .plus::before, .faq-q .plus::after{
+  content:""; position:absolute; background:var(--black); top:50%; left:50%; transform:translate(-50%,-50%);
+}
+.faq-q .plus::before{width:10px; height:1.5px;}
+.faq-q .plus::after{width:1.5px; height:10px; transition:opacity .3s var(--ease);}
+.faq-item.active .plus{background:var(--red); border-color:var(--red); transform:rotate(180deg);}
+.faq-item.active .plus::before, .faq-item.active .plus::after{background:#fff;}
+.faq-item.active .plus::after{opacity:0;}
+.faq-a{max-height:0; overflow:hidden; transition:max-height .45s var(--ease);}
+.faq-a-inner{padding:0 26px 24px; color:var(--grey-dark); font-size:.92rem; max-width:70ch;}
+
+/* =========================================================
+   12. FOOTER
+========================================================= */
+footer{ background:var(--black-soft); border-top:1px solid var(--line); padding:90px 0 30px; }
+.footer-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1.1fr; gap:50px; margin-bottom:60px; }
+.footer-brand p{color:var(--grey); font-size:.9rem; margin:18px 0 24px; max-width:32ch;}
+.social-row{display:flex; gap:10px;}
+.social-row a{
+  width:38px; height:38px; border-radius:10px; background:var(--glass-bg); border:1px solid var(--glass-border);
+  display:flex; align-items:center; justify-content:center; transition:.3s var(--ease);
+}
+.social-row a:hover{background:var(--red); border-color:var(--red);}
+.social-row svg{width:17px; height:17px; fill:var(--grey-light);}
+.social-row a:hover svg{fill:#fff;}
+.footer-col h5{font-size:.82rem; letter-spacing:.06em; text-transform:uppercase; color:var(--grey); margin-bottom:20px;}
+.footer-col ul{display:flex; flex-direction:column; gap:12px;}
+.footer-col a{font-size:.9rem; color:var(--grey-light); transition:.25s;}
+.footer-col a:hover{color:var(--red-2);}
+.footer-contact li{display:flex; gap:10px; align-items:flex-start; font-size:.88rem; color:var(--grey-light);}
+.footer-contact svg{width:17px; height:17px; stroke:var(--red-2); flex-shrink:0; margin-top:2px;}
+.footer-bottom{
+  border-top:1px solid var(--line); padding-top:26px; display:flex; justify-content:space-between;
+  flex-wrap:wrap; gap:12px; font-size:.8rem; color:var(--grey-dark);
+}
+.footer-bottom a{color:var(--grey-dark);}
+.footer-bottom a:hover{color:var(--red-2);}
+
+/* =========================================================
+   13. RESPONSIVE
+========================================================= */
+@media (max-width:1080px){
+  .about-grid{grid-template-columns:repeat(2,1fr);}
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .why-grid{grid-template-columns:repeat(2,1fr);}
+  .reviews-grid{grid-template-columns:repeat(2,1fr);}
+  .booking-wrap{grid-template-columns:1fr; gap:50px;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:860px){
+  .nav-links{display:none;}
+  .nav-cta .btn-ghost{display:none;}
+  .nav-toggle{display:flex;}
+  .about-top{grid-template-columns:1fr; gap:26px;}
+  .timeline{grid-template-columns:repeat(5,1fr);}
+  .timeline::before{left:8%; right:8%;}
+}
+@media (max-width:640px){
+  .about-grid, .services-grid, .why-grid, .reviews-grid{grid-template-columns:1fr;}
+  .hero-stats{grid-template-columns:1fr;}
+  .field-row{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .timeline{grid-template-columns:1fr; row-gap:34px;}
+  .timeline::before{display:none;}
+  .book-form{padding:28px;}
+  .booking-wrap{gap:36px;}
+  h2{font-size:2rem;}
+  .about, .services, .why, .process, .booking, .reviews, .faq{padding:90px 0;}
+}
+</style>
 </head>
 <body>
 
-    <!-- Dynamic Animated Particle Canvas Overlay -->
-    <canvas id="hero-canvas"></canvas>
-    <div class="ambient-glow"></div>
-
-    <!-- Sticky Navigation Bar -->
-    <header id="navbar">
-        <div class="container">
-            <nav class="nav-container">
-                <a href="#" class="logo">
-                    <div class="logo-mark">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                        </svg>
-                    </div>
-                    <span>I TECH <span style="color:var(--brand-red);">REPAIR</span></span>
-                </a>
-
-                <ul class="nav-links">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#why-us" class="nav-link">Why Us</a></li>
-                    <li><a href="#process" class="nav-link">Process</a></li>
-                    <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                    <li><a href="#faq" class="nav-link">FAQ</a></li>
-                </ul>
-
-                <a href="#booking" class="btn btn-primary nav-btn-desktop">Book Repair</a>
-
-                <button class="mobile-toggle" id="menu-toggle" aria-label="Toggle Navigation">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="3" y1="12" x2="21" y2="12"></line>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
-                </button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Mobile Drawer Overlay Nav -->
-    <div class="mobile-menu" id="mobile-menu">
-        <a href="#home" class="nav-link mobile-link">Home</a>
-        <a href="#about" class="nav-link mobile-link">About</a>
-        <a href="#services" class="nav-link mobile-link">Services</a>
-        <a href="#why-us" class="nav-link mobile-link">Why Us</a>
-        <a href="#process" class="nav-link mobile-link">Process</a>
-        <a href="#booking" class="btn btn-primary mobile-link">Book Repair Now</a>
-    </div>
-
-    <main>
-        <!-- HERO SECTION -->
-        <section id="home" class="hero">
-            <div class="container">
-                <div class="hero-grid">
-                    <div class="hero-content reveal">
-                        <div class="hero-tag">
-                            <span style="width: 8px; height: 8px; background: var(--brand-red); border-radius: 50%; display: inline-block;"></span>
-                            Next-Gen Electronics Care in UK
-                        </div>
-                        <h1 class="hero-title">
-                            Professional <br>
-                            <span class="gradient-red-text">Electronics Repair</span>
-                        </h1>
-                        <p class="hero-subtitle">
-                            Fast, reliable, and trusted repair engineering for Smartphones, MacBooks, Tablets, Gaming Consoles, and Advanced PCB Components.
-                        </p>
-                        <div class="hero-cta">
-                            <a href="#booking" class="btn btn-primary">
-                                Book Repair
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                            </a>
-                            <a href="https://wa.me/447440650303" target="_blank" class="btn btn-secondary">
-                                WhatsApp Us
-                            </a>
-                        </div>
-                        <div class="stats-wrapper">
-                            <div class="stat-item">
-                                <div class="stat-number" data-target="5000">0</div>
-                                <div class="stat-label">Devices Fixed</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number" data-target="98">0</div>
-                                <div class="stat-label">Satisfaction %</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number" style="color: var(--brand-red);">24h</div>
-                                <div class="stat-label">Avg Turnaround</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Visual Graphic Element -->
-                    <div class="hero-visual reveal">
-                        <div class="hero-graphic-card">
-                            <div class="chip-graphic">
-                                <div class="chip-inner">
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
-                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- BRAND SLIDER SECTION -->
-        <section style="padding: 2rem 0; border-y: 1px solid var(--border-light); background: rgba(255,255,255,0.01);">
-            <div class="brands-slider">
-                <div class="brands-track">
-                    <div class="brand-item">APPLE</div>
-                    <div class="brand-item">SAMSUNG</div>
-                    <div class="brand-item">DELL</div>
-                    <div class="brand-item">HP</div>
-                    <div class="brand-item">LENOVO</div>
-                    <div class="brand-item">ASUS</div>
-                    <div class="brand-item">SONY</div>
-                    <div class="brand-item">PLAYSTATION</div>
-                    <div class="brand-item">XBOX</div>
-                    <div class="brand-item">NINTENDO</div>
-                    <!-- Duplicate Set for Seamless Infinite Loop -->
-                    <div class="brand-item">APPLE</div>
-                    <div class="brand-item">SAMSUNG</div>
-                    <div class="brand-item">DELL</div>
-                    <div class="brand-item">HP</div>
-                    <div class="brand-item">LENOVO</div>
-                    <div class="brand-item">ASUS</div>
-                    <div class="brand-item">SONY</div>
-                    <div class="brand-item">PLAYSTATION</div>
-                    <div class="brand-item">XBOX</div>
-                    <div class="brand-item">NINTENDO</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ABOUT SECTION -->
-        <section id="about">
-            <div class="container">
-                <div class="about-grid">
-                    <div class="reveal">
-                        <div class="hero-tag">Engineered Precision</div>
-                        <h2 class="section-title">Setting New Standards in Tech Restoration</h2>
-                        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.05rem;">
-                            At <strong style="color:var(--text-primary)">I Tech Repair Zone</strong>, we treat modern devices like the delicate precision instruments they are. Based in the UK, our lab operates with surgical accuracy to perform diagnostics and component replacements that ordinary repair shops deem impossible.
-                        </p>
-                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
-                            Equipped with high-grade micro-soldering gear, clean-room environments, and genuine supplier pathways, we extend the lifecycle of your most prized digital workhorses.
-                        </p>
-                        <a href="#services" class="btn btn-secondary">Explore Capabilities</a>
-                    </div>
-                    <div class="about-cards-grid reveal">
-                        <div class="glass-card about-mini-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                            <h3 style="font-size:1.1rem; margin-bottom:0.5rem;">Comprehensive Warranty</h3>
-                            <p style="color:var(--text-muted); font-size:0.85rem;">Guaranteed peace-of-mind coverage on every hardware replacement.</p>
-                        </div>
-                        <div class="glass-card about-mini-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            <h3 style="font-size:1.1rem; margin-bottom:0.5rem;">Same-Day Turnaround</h3>
-                            <p style="color:var(--text-muted); font-size:0.85rem;">Most mobile screen and battery replacements finished in under 60 minutes.</p>
-                        </div>
-                        <div class="glass-card about-mini-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                            <h3 style="font-size:1.1rem; margin-bottom:0.5rem;">Certified Technicians</h3>
-                            <p style="color:var(--text-muted); font-size:0.85rem;">IPC-certified IPC-7711/7721 solder and rework engineers on site.</p>
-                        </div>
-                        <div class="glass-card about-mini-card">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <h3 style="font-size:1.1rem; margin-bottom:0.5rem;">Original OEM Parts</h3>
-                            <p style="color:var(--text-muted); font-size:0.85rem;">Factory-spec components to guarantee original performance and longevity.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SERVICES SECTION -->
-        <section id="services">
-            <div class="container">
-                <div class="section-header reveal">
-                    <h2 class="section-title">Specialized Services</h2>
-                    <p class="section-subtitle">Precision engineering treatments tailored for every tier of consumer electronics.</p>
-                </div>
-                <div class="services-grid">
-                    <!-- Service Card 1 -->
-                    <div class="glass-card service-card reveal">
-                        <div>
-                            <div class="service-icon-wrapper">
-                                <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                            </div>
-                            <h3 class="service-title">Smartphone Restorations</h3>
-                            <p class="service-desc">Display assemblies, battery swaps, camera module fixes, and charging port replacements across Apple, Samsung, and Pixel devices.</p>
-                        </div>
-                    </div>
-                    <!-- Service Card 2 -->
-                    <div class="glass-card service-card reveal">
-                        <div>
-                            <div class="service-icon-wrapper">
-                                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
-                            </div>
-                            <h3 class="service-title">Laptop & MacBook Repair</h3>
-                            <p class="service-desc">Liquid damage rehab, keyboard replacements, thermal paste re-application, and SSD/RAM hardware performance upgrades.</p>
-                        </div>
-                    </div>
-                    <!-- Service Card 3 -->
-                    <div class="glass-card service-card reveal">
-                        <div>
-                            <div class="service-icon-wrapper">
-                                <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                            </div>
-                            <h3 class="service-title">Tablet & iPad Overhauls</h3>
-                            <p class="service-desc">Digitizer glass replacements, frame straightening, battery replacements, and logic board pin repairs for all tablet brands.</p>
-                        </div>
-                    </div>
-                    <!-- Service Card 4 -->
-                    <div class="glass-card service-card reveal">
-                        <div>
-                            <div class="service-icon-wrapper">
-                                <svg viewBox="0 0 24 24"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="13" r="1"/><circle cx="18" cy="11" r="1"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg>
-                            </div>
-                            <h3 class="service-title">Console & Gaming Repairs</h3>
-                            <p class="service-desc">HDMI port replacements, optical drive repair, overheating fan overhauls, and controller drift fixes for PS5, Xbox, and Switch.</p>
-                        </div>
-                    </div>
-                    <!-- Service Card 5 -->
-                    <div class="glass-card service-card reveal">
-                        <div>
-                            <div class="service-icon-wrapper">
-                                <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                            </div>
-                            <h3 class="service-title">Board-Level Micro-Soldering</h3>
-                            <p class="service-desc">IC Chip replacements, trace jumper wires, short-circuit diagnostics, and power management rail recoveries.</p>
-                        </div>
-                    </div>
-                    <!-- Service Card 6 -->
-                    <div class="glass-card service-card reveal">
-                        <div>
-                            <div class="service-icon-wrapper">
-                                <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            </div>
-                            <h3 class="service-title">Accessories & Custom Refits</h3>
-                            <p class="service-desc">Custom aesthetic housing conversions, premium screen protectors, heavy-duty protective cases, and audio repair.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- WHY CHOOSE US -->
-        <section id="why-us" style="background: rgba(255,255,255,0.01);">
-            <div class="container">
-                <div class="section-header reveal">
-                    <h2 class="section-title">The Engineering Edge</h2>
-                    <p class="section-subtitle">Why discerning customers trust us with their critical electronic devices.</p>
-                </div>
-                <div class="features-grid">
-                    <div class="glass-card feature-card reveal">
-                        <span class="feature-number">01</span>
-                        <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">Transparent Diagnostics</h3>
-                        <p style="color: var(--text-secondary); font-size:0.95rem;">No hidden fees. We analyze your hardware and present clear options before initiating any work.</p>
-                    </div>
-                    <div class="glass-card feature-card reveal">
-                        <span class="feature-number">02</span>
-                        <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">ESD-Protected Lab Environment</h3>
-                        <p style="color: var(--text-secondary); font-size:0.95rem;">All repairs occur on anti-static workbenches following strict electrostatic discharge safety guidelines.</p>
-                    </div>
-                    <div class="glass-card feature-card reveal">
-                        <span class="feature-number">03</span>
-                        <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">No Fix, No Fee Guarantee</h3>
-                        <p style="color: var(--text-secondary); font-size:0.95rem;">If our master technicians cannot resolve your device issue, you won't pay a single penny.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- REPAIR PROCESS SECTION -->
-        <section id="process">
-            <div class="container">
-                <div class="section-header reveal">
-                    <h2 class="section-title">Seamless Repair Journey</h2>
-                    <p class="section-subtitle">Four simple steps from malfunctioning tech to like-new performance.</p>
-                </div>
-                <div class="timeline">
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="glass-card timeline-content">
-                            <h3 style="margin-bottom:0.5rem; color:var(--brand-red);">Step 01</h3>
-                            <h4 style="font-size:1.2rem; margin-bottom:0.5rem;">Book Repair Online</h4>
-                            <p style="color:var(--text-secondary); font-size:0.9rem;">Fill out our instant repair form with your device specifications and problem summary.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="glass-card timeline-content">
-                            <h3 style="margin-bottom:0.5rem; color:var(--brand-red);">Step 02</h3>
-                            <h4 style="font-size:1.2rem; margin-bottom:0.5rem;">Precision Inspection</h4>
-                            <p style="color:var(--text-secondary); font-size:0.9rem;">Our experts conduct a deep hardware evaluation using diagnostic tools.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="glass-card timeline-content">
-                            <h3 style="margin-bottom:0.5rem; color:var(--brand-red);">Step 03</h3>
-                            <h4 style="font-size:1.2rem; margin-bottom:0.5rem;">Component Solder / Rework</h4>
-                            <p style="color:var(--text-secondary); font-size:0.9rem;">Master technicians execute precision repairs using high-grade components.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="glass-card timeline-content">
-                            <h3 style="margin-bottom:0.5rem; color:var(--brand-red);">Step 04</h3>
-                            <h4 style="font-size:1.2rem; margin-bottom:0.5rem;">Quality Control & Handover</h4>
-                            <p style="color:var(--text-secondary); font-size:0.9rem;">Extensive bench testing ensures full stability before returning your device with warranty.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- BOOKING FORM SECTION -->
-        <section id="booking">
-            <div class="container">
-                <div class="glass-card booking-container reveal">
-                    <div style="text-align: center; margin-bottom: 2.5rem;">
-                        <h2 class="section-title" style="font-size: 2.25rem;">Schedule Your Service</h2>
-                        <p style="color: var(--text-secondary);">Direct submission auto-formats an instant message to our WhatsApp team.</p>
-                    </div>
-                    <form id="repairForm">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label class="form-label" for="fullname">Full Name</label>
-                                <input type="text" id="fullname" class="form-input" placeholder="e.g. Alex Turner" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="phone">Phone Number</label>
-                                <input type="tel" id="phone" class="form-input" placeholder="e.g. +44 7123 456789" required>
-                            </div>
-                            <div class="form-group full-width">
-                                <label class="form-label" for="devicetype">Device Category & Model</label>
-                                <select id="devicetype" class="form-select" required>
-                                    <option value="" disabled selected>Select Your Device</option>
-                                    <option value="iPhone / Smartphone">iPhone / Smartphone</option>
-                                    <option value="MacBook / Laptop">MacBook / Laptop</option>
-                                    <option value="iPad / Tablet">iPad / Tablet</option>
-                                    <option value="PlayStation / Xbox / Switch">PlayStation / Xbox / Switch</option>
-                                    <option value="Micro-Soldering / PCB Logic Board">Micro-Soldering / PCB Logic Board</option>
-                                    <option value="Other Electronics">Other Electronics</option>
-                                </select>
-                            </div>
-                            <div class="form-group full-width">
-                                <label class="form-label" for="problem">Describe the Problem</label>
-                                <input type="text" id="problem" class="form-input" placeholder="e.g. Cracked OLED screen, won't charge" required>
-                            </div>
-                            <div class="form-group full-width">
-                                <label class="form-label" for="details">Additional Notes (Optional)</label>
-                                <textarea id="details" rows="3" class="form-textarea" placeholder="Provide any liquid exposure info, prior repair history, or specific timeline constraints..."></textarea>
-                            </div>
-                            <div class="form-group full-width" style="margin-top: 1rem;">
-                                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.1rem;">
-                                    Submit Repair Request
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- REVIEWS SECTION -->
-        <section id="reviews">
-            <div class="container">
-                <div class="section-header reveal">
-                    <h2 class="section-title">Client Endorsements</h2>
-                    <p class="section-subtitle">Real experiences from customers across the United Kingdom.</p>
-                </div>
-                <div class="reviews-grid">
-                    <div class="glass-card review-card reveal">
-                        <div class="stars">★★★★★</div>
-                        <p style="color:var(--text-secondary); font-size:0.95rem;">"Saved my water-damaged MacBook Air containing months of unsaved design files. Absolute miracle workers at PCB logic board repairs!"</p>
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">DM</div>
-                            <div>
-                                <h4 style="font-size:0.95rem;">David Miller</h4>
-                                <p style="font-size:0.8rem; color:var(--text-muted);">London, UK</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="glass-card review-card reveal">
-                        <div class="stars">★★★★★</div>
-                        <p style="color:var(--text-secondary); font-size:0.95rem;">"Replaced my HDMI port on my PS5 within 3 hours. Super sleek workspace, incredibly fast response times on WhatsApp."</p>
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">SR</div>
-                            <div>
-                                <h4 style="font-size:0.95rem;">Sarah Robinson</h4>
-                                <p style="font-size:0.8rem; color:var(--text-muted);">Manchester, UK</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="glass-card review-card reveal">
-                        <div class="stars">★★★★★</div>
-                        <p style="color:var(--text-secondary); font-size:0.95rem;">"Genuine parts used for my iPhone 14 Pro OLED screen repair. Color accuracy and touch response feel indistinguishable from factory."</p>
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">JH</div>
-                            <div>
-                                <h4 style="font-size:0.95rem;">James Henderson</h4>
-                                <p style="font-size:0.8rem; color:var(--text-muted);">Birmingham, UK</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ SECTION -->
-        <section id="faq" style="background: rgba(255,255,255,0.01);">
-            <div class="container">
-                <div class="section-header reveal">
-                    <h2 class="section-title">Frequently Asked Questions</h2>
-                    <p class="section-subtitle">Everything you need to know about our service framework.</p>
-                </div>
-                <div class="faq-container">
-                    <div class="glass-card faq-item reveal">
-                        <div class="faq-header">
-                            <span>How long does a standard device repair take?</span>
-                            <span class="faq-icon">▼</span>
-                        </div>
-                        <div class="faq-body">
-                            Most common mobile phone and tablet repairs (screen, battery, charging port) are completed on the same day within 1–2 hours. Micro-soldering and liquid damage recovery usually require 24 to 48 hours for deep stress testing.
-                        </div>
-                    </div>
-                    <div class="glass-card faq-item reveal">
-                        <div class="faq-header">
-                            <span>What kind of warranty comes with the repair?</span>
-                            <span class="faq-icon">▼</span>
-                        </div>
-                        <div class="faq-body">
-                            All our hardware component replacements come standard with a comprehensive coverage warranty that spans up to 12 months, safeguarding against manufacturing faults or performance dips.
-                        </div>
-                    </div>
-                    <div class="glass-card faq-item reveal">
-                        <div class="faq-header">
-                            <span>Do I need to back up or clear my data prior to submission?</span>
-                            <span class="faq-icon">▼</span>
-                        </div>
-                        <div class="faq-body">
-                            While we strictly preserve your data integrity, we always recommend making a cloud or local backup whenever possible as a standard security precaution.
-                        </div>
-                    </div>
-                    <div class="glass-card faq-item reveal">
-                        <div class="faq-header">
-                            <span>Are replacement parts original manufacturer components?</span>
-                            <span class="faq-icon">▼</span>
-                        </div>
-                        <div class="faq-body">
-                            We source exclusively OEM-grade or genuine original refurbished components to ensure full functional compatibility, true color response, and original battery efficiency metrics.
-                        </div>
-                    </div>
-                    <div class="glass-card faq-item reveal">
-                        <div class="faq-header">
-                            <span>What does your 'No Fix, No Fee' policy cover?</span>
-                            <span class="faq-icon">▼</span>
-                        </div>
-                        <div class="faq-body">
-                            If our technical team performs exhaustive diagnostics and determines the device cannot be brought back to functional viability, you will not incur labor charges.
-                        </div>
-                    </div>
-                    <div class="glass-card faq-item reveal">
-                        <div class="faq-header">
-                            <span>Can I post my device in if I live far away?</span>
-                            <span class="faq-icon">▼</span>
-                        </div>
-                        <div class="faq-body">
-                            Yes! We operate a secure nationwide postal repair service throughout the UK. Reach out via WhatsApp or submit a booking form to receive tracked postal details.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER SECTION -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <a href="#" class="logo" style="margin-bottom: 1rem;">
-                        <div class="logo-mark">
-                            <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                        </div>
-                        <span>I TECH <span style="color:var(--brand-red);">REPAIR</span></span>
-                    </a>
-                    <p class="footer-desc">
-                        UK’s modern standard for high-tier consumer electronics repair, micro-soldering solutions, and component diagnostics.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="footer-title">Navigation</h4>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Company</a></li>
-                        <li><a href="#services">Repair Services</a></li>
-                        <li><a href="#booking">Book Appointment</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer-title">Services</h4>
-                    <ul class="footer-links">
-                        <li><a href="#services">iPhone & Android</a></li>
-                        <li><a href="#services">MacBook & Laptops</a></li>
-                        <li><a href="#services">Gaming Consoles</a></li>
-                        <li><a href="#services">Logic Board Rework</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer-title">Direct Contact</h4>
-                    <ul class="footer-links" style="gap:1rem;">
-                        <li style="color:var(--text-secondary); font-size:0.9rem;">
-                            <strong style="color:var(--text-primary)">Location:</strong><br>
-                            United Kingdom Repair Depot
-                        </li>
-                        <li style="color:var(--text-secondary); font-size:0.9rem;">
-                            <strong style="color:var(--text-primary)">WhatsApp Direct:</strong><br>
-                            +44 7440 650303
-                        </li>
-                        <li style="color:var(--text-secondary); font-size:0.9rem;">
-                            <strong style="color:var(--text-primary)">Support Email:</strong><br>
-                            support@itechrepairzone.co.uk
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 I Tech Repair Zone. All rights reserved.</p>
-                <p style="font-size:0.8rem;">Designed for ultra-performance & elegance.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- FLOATING WHATSAPP CTA -->
-    <a href="https://wa.me/447440650303" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
-        <svg viewBox="0 0 32 32">
-            <path d="M16 2a13 13 0 0 0-11 20L3 29l7-2a13 13 0 1 0 6-25zm0 24a11 11 0 0 1-6-1.7l-.4-.2-4.2 1.1 1.1-4.1-.3-.5A11 11 0 1 1 16 26zm6-8.2c-.3-.2-1.9-1-2.2-1.1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a9 9 0 0 1-2.6-1.6 10 10 0 0 1-1.8-2.3c-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6s0-.4 0-.5l-1-2.4c-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.7.1-1 .5a4.3 4.3 0 0 0-1.4 3.2 7.5 7.5 0 0 0 1.6 4 17.2 17.2 0 0 0 6.6 5.8c.8.3 1.4.5 1.9.7a4.6 4.6 0 0 0 2.1.1 3.4 3.4 0 0 0 2.2-1.6 2.8 2.8 0 0 0 .2-1.6c-.1-.3-.4-.4-.7-.5z"/>
-        </svg>
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+<header class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="#home" class="brand" aria-label="I Tech Repair Zone home">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="2" y="2" width="44" height="44" rx="12" fill="#0a0a0b" stroke="#e0122a" stroke-width="1.4"/>
+        <path d="M24 10v6M24 32v6M10 24h6M32 24h6M14.6 14.6l4.2 4.2M29.2 29.2l4.2 4.2M33.4 14.6l-4.2 4.2M18.8 29.2l-4.2 4.2" stroke="#e0122a" stroke-width="1.4" stroke-linecap="round"/>
+        <circle cx="24" cy="24" r="6.5" fill="#e0122a"/>
+      </svg>
+      <span class="brand-name">I TECH <b>REPAIR</b> ZONE</span>
     </a>
 
-    <!-- Embedded JavaScript Engine -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#booking">Booking</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
-            // --- Sticky Navbar Glass & Shrink Effect ---
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('glass-nav');
-                    navbar.style.height = '70px';
-                } else {
-                    navbar.classList.remove('glass-nav');
-                    navbar.style.height = '80px';
-                }
-            });
+    <div class="nav-cta">
+      <a href="https://wa.me/447440650303" target="_blank" rel="noopener" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.42 5.13L2 22l5.13-1.5a9.9 9.9 0 0 0 4.9 1.27h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.94 1.35-.5.05-1.06.24-3.55-.75-3-1.2-4.93-4.24-5.08-4.44-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.68.53.25.6.85 2.06.92 2.21.07.15.12.33.02.53-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.3-.13.6.17.3.76 1.27 1.63 2.06 1.12 1 2.07 1.32 2.37 1.47.3.15.47.13.65-.07.18-.2.75-.85.95-1.15.2-.3.4-.24.66-.14.27.1 1.7.82 1.99.97.3.15.49.22.56.34.07.13.07.72-.17 1.4z"/></svg>
+        WhatsApp
+      </a>
+      <a href="#booking" class="btn btn-primary">Book Repair</a>
+    </div>
 
-            // --- Mobile Nav Drawer Control ---
-            const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+    </button>
+  </div>
+</header>
 
-            menuToggle.addEventListener('click', () => {
-                mobileMenu.classList.toggle('active');
-            });
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#booking">Booking</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contact">Contact</a>
+  <a href="#booking" class="btn btn-primary">Book Repair</a>
+</div>
 
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('active');
-                });
-            });
+<!-- =========================================================
+     HERO
+========================================================= -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="hero-scan" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-mark" data-reveal="scale">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="44" height="44" rx="13" fill="#0a0a0b" stroke="#e0122a" stroke-width="1.2"/>
+          <path d="M24 9v7M24 32v7M9 24h7M32 24h7M14 14l4.5 4.5M29.5 29.5l4.5 4.5M34 14l-4.5 4.5M18.5 29.5L14 34" stroke="#ff3b4e" stroke-width="1.3" stroke-linecap="round"/>
+          <circle cx="24" cy="24" r="7" fill="#e0122a"/>
+        </svg>
+      </div>
+      <span class="eyebrow" style="justify-content:center; display:flex;" data-reveal="fade">Certified UK Repair Centre</span>
+      <h1 class="hero-title" data-reveal="fade">Professional <span class="accent">Electronics Repair</span> Services</h1>
+      <p class="hero-sub" data-reveal="fade">Fast, reliable &amp; trusted repairs for phones, laptops, tablets, gaming consoles and electronic devices — diagnosed and fixed by certified technicians.</p>
+      <div class="hero-actions" data-reveal="fade">
+        <a href="#booking" class="btn btn-primary">Book Repair</a>
+        <a href="https://wa.me/447440650303" target="_blank" rel="noopener" class="btn btn-ghost">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.42 5.13L2 22l5.13-1.5a9.9 9.9 0 0 0 4.9 1.27h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.94 1.35-.5.05-1.06.24-3.55-.75-3-1.2-4.93-4.24-5.08-4.44-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.68.53.25.6.85 2.06.92 2.21.07.15.12.33.02.53-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.3-.13.6.17.3.76 1.27 1.63 2.06 1.12 1 2.07 1.32 2.37 1.47.3.15.47.13.65-.07.18-.2.75-.85.95-1.15.2-.3.4-.24.66-.14.27.1 1.7.82 1.99.97.3.15.49.22.56.34.07.13.07.72-.17 1.4z"/></svg>
+          WhatsApp Us
+        </a>
+      </div>
 
-            // --- Canvas Background Animation (Constellation Network Style) ---
-            const canvas = document.getElementById('hero-canvas');
-            const ctx = canvas.getContext('2d');
-            let width, height;
-            let particles = [];
+      <div class="hero-stats" data-reveal="fade">
+        <div class="stat"><b>5000<span class="unit">+</span></b><span>Devices Repaired</span></div>
+        <div class="stat"><b><span class="unit">98</span>%</b><span>Customer Satisfaction</span></div>
+        <div class="stat"><b style="font-size:clamp(1.1rem,2vw,1.6rem)">Same-Day</b><span>Repairs Available</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            function resizeCanvas() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            }
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+<section class="about on-light" id="about">
+  <div class="container">
+    <div class="about-top">
+      <div data-reveal="fade">
+        <span class="eyebrow">About Us</span>
+        <h2>Repair standards built for people who rely on their devices</h2>
+      </div>
+      <p data-reveal="fade">I Tech Repair Zone is a UK-based repair centre for phones, laptops, tablets and gaming consoles. Every device is inspected by certified technicians, repaired with genuine-grade parts, and returned with a written warranty — because a repair should feel as premium as the device itself.</p>
+    </div>
 
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
+    <div class="about-grid">
+      <div class="about-card" data-reveal="fade">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.5 6.5L22 10l-5 4.3L18.5 22 12 18l-6.5 4 1.5-7.7L2 10l6.5-1.5z"/></svg></div>
+        <h4>Our Mission</h4>
+        <p>Deliver honest, expert repairs that get your device back to you fast — without cutting corners.</p>
+      </div>
+      <div class="about-card" data-reveal="fade">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg></div>
+        <h4>Years of Experience</h4>
+        <p>A decade of board-level and consumer electronics repair across every major brand.</p>
+      </div>
+      <div class="about-card" data-reveal="fade">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg></div>
+        <h4>Quality Assurance</h4>
+        <p>Every repair passes a multi-point quality test before it's marked ready for collection.</p>
+      </div>
+      <div class="about-card" data-reveal="fade">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6l8-4z"/></svg></div>
+        <h4>Warranty Backed</h4>
+        <p>Every repair is covered by our warranty, so you're protected long after collection.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.vx = (Math.random() - 0.5) * 0.4;
-                    this.vy = (Math.random() - 0.5) * 0.4;
-                    this.radius = Math.random() * 1.5 + 0.5;
-                }
+<!-- =========================================================
+     SERVICES
+========================================================= -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-head" data-reveal="fade">
+      <span class="eyebrow">What We Fix</span>
+      <h2>Repair services, engineered end to end</h2>
+      <p class="section-sub">From cracked screens to component-level board repair — one team, one standard of quality.</p>
+    </div>
 
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
+    <div class="services-grid">
+      <div class="svc-card" data-reveal="fade">
+        <span class="svc-num">01</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+        <h4>Phone Repair</h4>
+        <p>Screen, battery, charging port and camera repair for all major smartphone brands.</p>
+      </div>
+      <div class="svc-card" data-reveal="fade">
+        <span class="svc-num">02</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M2 20h20M9 20l1-4h4l1 4"/></svg></div>
+        <h4>Laptop Repair</h4>
+        <p>Screen replacement, keyboard, battery, motherboard diagnostics and data recovery.</p>
+      </div>
+      <div class="svc-card" data-reveal="fade">
+        <span class="svc-num">03</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+        <h4>Tablet Repair</h4>
+        <p>Digitiser, glass and battery replacement for iPad and Android tablets.</p>
+      </div>
+      <div class="svc-card" data-reveal="fade">
+        <span class="svc-num">04</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="4"/><circle cx="8" cy="12" r="1.4"/><circle cx="17" cy="10.6" r="1"/><circle cx="18.6" cy="13.4" r="1"/></svg></div>
+        <h4>Gaming Console Repair</h4>
+        <p>HDMI port, disc drive, overheating and controller repair for PlayStation, Xbox &amp; Nintendo.</p>
+      </div>
+      <div class="svc-card" data-reveal="fade">
+        <span class="svc-num">05</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M20 8V6a2 2 0 0 0-2-2h-2M20 16v2a2 2 0 0 1-2 2h-2"/><rect x="8" y="8" width="8" height="8" rx="1.5"/></svg></div>
+        <h4>Accessories</h4>
+        <p>Chargers, cables, cases and genuine-grade replacement parts, tested before sale.</p>
+      </div>
+      <div class="svc-card" data-reveal="fade">
+        <span class="svc-num">06</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v3M15 4v3M9 17v3M15 17v3M4 9h3M4 15h3M17 9h3M17 15h3"/><circle cx="12" cy="12" r="2.2"/></svg></div>
+        <h4>Board-Level Repair</h4>
+        <p>Micro-soldering and component-level diagnostics for logic board and chip-level faults.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-                    if (this.x < 0 || this.x > width) this.vx *= -1;
-                    if (this.y < 0 || this.y > height) this.vy *= -1;
-                }
+<!-- =========================================================
+     WHY CHOOSE US
+========================================================= -->
+<section class="why on-light">
+  <div class="container">
+    <div class="section-head" data-reveal="fade">
+      <span class="eyebrow">Why I Tech Repair Zone</span>
+      <h2>Repairs you can trust, start to finish</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card" data-reveal="fade">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M12 3l8 4v5c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V7l8-4z"/></svg></div>
+        <div><h4>Certified Technicians</h4><p>Trained and certified across every device category we service.</p></div>
+      </div>
+      <div class="why-card" data-reveal="fade">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6l8-4z"/></svg></div>
+        <div><h4>Warranty on Every Repair</h4><p>Full written warranty for peace of mind after collection.</p></div>
+      </div>
+      <div class="why-card" data-reveal="fade">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
+        <div><h4>Fast Turnaround</h4><p>Most repairs completed same-day, with express options available.</p></div>
+      </div>
+      <div class="why-card" data-reveal="fade">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg></div>
+        <div><h4>Affordable Pricing</h4><p>Transparent, upfront quotes with no hidden charges.</p></div>
+      </div>
+      <div class="why-card" data-reveal="fade">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M4 20V10l8-6 8 6v10M9 20v-6h6v6"/></svg></div>
+        <div><h4>High-Quality Parts</h4><p>Only genuine-grade components, tested before every install.</p></div>
+      </div>
+      <div class="why-card" data-reveal="fade">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 1 1-3.5-6.9M21 4v6h-6"/></svg></div>
+        <div><h4>Ongoing Support</h4><p>Friendly help before, during and after your repair — every time.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(255, 42, 75, 0.5)';
-                    ctx.fill();
-                }
-            }
+<!-- =========================================================
+     DEVICE BRANDS
+========================================================= -->
+<section class="brands">
+  <div class="container">
+    <div class="section-head center" data-reveal="fade">
+      <span class="eyebrow" style="justify-content:center;display:flex;">Brands We Service</span>
+      <h2>Every major device, one repair centre</h2>
+    </div>
+  </div>
+  <div class="marquee" data-reveal="fade">
+    <div class="marquee-track" id="marqueeTrack">
+      <!-- duplicated via JS for seamless loop -->
+      <span class="brand-chip">Apple</span>
+      <span class="brand-chip">Samsung</span>
+      <span class="brand-chip">Dell</span>
+      <span class="brand-chip">HP</span>
+      <span class="brand-chip">Lenovo</span>
+      <span class="brand-chip">Asus</span>
+      <span class="brand-chip">Acer</span>
+      <span class="brand-chip">MSI</span>
+      <span class="brand-chip">Sony</span>
+      <span class="brand-chip">PlayStation</span>
+      <span class="brand-chip">Xbox</span>
+      <span class="brand-chip">Nintendo</span>
+    </div>
+  </div>
+</section>
 
-            for (let i = 0; i < 45; i++) {
-                particles.push(new Particle());
-            }
+<!-- =========================================================
+     REPAIR PROCESS
+========================================================= -->
+<section class="process">
+  <div class="container">
+    <div class="section-head center" data-reveal="fade">
+      <span class="eyebrow" style="justify-content:center;display:flex;">How It Works</span>
+      <h2>Five steps from drop-off to done</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-step" data-reveal="fade"><div class="tl-dot">01</div><h4>Book Repair</h4><p>Submit your device details online or via WhatsApp.</p></div>
+      <div class="tl-step" data-reveal="fade"><div class="tl-dot">02</div><h4>Device Inspection</h4><p>Certified technician diagnoses the exact fault.</p></div>
+      <div class="tl-step" data-reveal="fade"><div class="tl-dot">03</div><h4>Repair</h4><p>Precision repair using genuine-grade parts.</p></div>
+      <div class="tl-step" data-reveal="fade"><div class="tl-dot">04</div><h4>Quality Testing</h4><p>Multi-point check to confirm full functionality.</p></div>
+      <div class="tl-step" data-reveal="fade"><div class="tl-dot">05</div><h4>Ready for Collection</h4><p>Your device, fully restored and warranty-backed.</p></div>
+    </div>
+  </div>
+</section>
 
-            function animateCanvas() {
-                ctx.clearRect(0, 0, width, height);
+<!-- =========================================================
+     BOOKING FORM
+========================================================= -->
+<section class="booking" id="booking">
+  <div class="container booking-wrap">
+    <div class="booking-info" data-reveal="slide-left">
+      <span class="eyebrow">Book a Repair</span>
+      <h2>Tell us what's wrong — we'll take it from there</h2>
+      <p>Fill in the form and your request is sent straight to our WhatsApp, so we can confirm your booking and give you an accurate quote in minutes.</p>
+      <div class="booking-points">
+        <div class="booking-point"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg> Instant WhatsApp confirmation</div>
+        <div class="booking-point"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg> Free, no-obligation quote</div>
+        <div class="booking-point"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg> Same-day repair where possible</div>
+      </div>
+    </div>
 
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
+    <form class="book-form" id="bookingForm" data-reveal="slide-right" novalidate>
+      <h3>Book Your Repair</h3>
+      <p class="form-note">We'll open WhatsApp with your details pre-filled — just hit send.</p>
 
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
+      <div class="field">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" placeholder="John Smith" required>
+        <span class="form-error" id="err-fullName">Please enter your full name.</span>
+      </div>
 
-                        if (dist < 120) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(255, 42, 75, ${0.15 * (1 - dist / 120)})`;
-                            ctx.lineWidth = 0.8;
-                            ctx.stroke();
-                        }
-                    }
-                }
-                requestAnimationFrame(animateCanvas);
-            }
+      <div class="field">
+        <label for="phoneNumber">Phone Number</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="07xxx xxx xxx" required>
+        <span class="form-error" id="err-phoneNumber">Please enter a valid phone number.</span>
+      </div>
 
-            animateCanvas();
+      <div class="field">
+        <label for="deviceType">Device Type</label>
+        <select id="deviceType" name="deviceType" required>
+          <option value="" disabled selected>Select your device</option>
+          <option>Phone</option>
+          <option>Laptop</option>
+          <option>Tablet</option>
+          <option>Gaming Console</option>
+          <option>Accessory</option>
+          <option>Other</option>
+        </select>
+        <span class="form-error" id="err-deviceType">Please select a device type.</span>
+      </div>
 
-            // --- Scroll Reveal Animations with IntersectionObserver ---
-            const revealElements = document.querySelectorAll('.reveal');
+      <div class="field">
+        <label for="problem">Describe the Problem</label>
+        <textarea id="problem" name="problem" placeholder="e.g. Cracked screen, won't charge, won't turn on..." required></textarea>
+        <span class="form-error" id="err-problem">Please describe the problem.</span>
+      </div>
 
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
+      <div class="field">
+        <label for="details">Additional Details <span style="color:var(--grey-dark); font-weight:400;">(optional)</span></label>
+        <textarea id="details" name="details" placeholder="Model, colour, any prior repairs..."></textarea>
+      </div>
 
-            revealElements.forEach(el => revealObserver.observe(el));
+      <button type="submit" class="btn btn-primary btn-block">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.42 5.13L2 22l5.13-1.5a9.9 9.9 0 0 0 4.9 1.27h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.94 1.35-.5.05-1.06.24-3.55-.75-3-1.2-4.93-4.24-5.08-4.44-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.68.53.25.6.85 2.06.92 2.21.07.15.12.33.02.53-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.3-.13.6.17.3.76 1.27 1.63 2.06 1.12 1 2.07 1.32 2.37 1.47.3.15.47.13.65-.07.18-.2.75-.85.95-1.15.2-.3.4-.24.66-.14.27.1 1.7.82 1.99.97.3.15.49.22.56.34.07.13.07.72-.17 1.4z"/></svg>
+        Submit Repair Request
+      </button>
+      <p class="form-status" id="formStatus">Opening WhatsApp with your request…</p>
+    </form>
+  </div>
+</section>
 
-            // --- Counter Animation ---
-            const statNumbers = document.querySelectorAll('.stat-number');
-            let animated = false;
+<a href="https://wa.me/447440650303" target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.42 5.13L2 22l5.13-1.5a9.9 9.9 0 0 0 4.9 1.27h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.94 1.35-.5.05-1.06.24-3.55-.75-3-1.2-4.93-4.24-5.08-4.44-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.68.53.25.6.85 2.06.92 2.21.07.15.12.33.02.53-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.3-.13.6.17.3.76 1.27 1.63 2.06 1.12 1 2.07 1.32 2.37 1.47.3.15.47.13.65-.07.18-.2.75-.85.95-1.15.2-.3.4-.24.66-.14.27.1 1.7.82 1.99.97.3.15.49.22.56.34.07.13.07.72-.17 1.4z"/></svg>
+</a>
 
-            const statsObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !animated) {
-                        statNumbers.forEach(counter => {
-                            const target = +counter.getAttribute('data-target');
-                            if(!target) return;
-                            const speed = 200;
-                            const inc = target / speed;
+<!-- =========================================================
+     REVIEWS
+========================================================= -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="section-head" data-reveal="fade">
+      <span class="eyebrow">Customer Reviews</span>
+      <h2>Trusted by thousands of happy customers</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card" data-reveal="fade">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+        </div>
+        <p class="quote">Cracked my iPhone screen the night before a trip — they had it fixed in under two hours. Genuinely couldn't tell it had ever been damaged.</p>
+        <div class="reviewer"><div class="avatar">JH</div><div><b>James H.</b><span>iPhone 14 Pro — Screen Repair</span></div></div>
+      </div>
+      <div class="review-card" data-reveal="fade">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+        </div>
+        <p class="quote">My laptop wouldn't power on at all. Turned out to be a board-level fault — most places would've told me to replace it. These guys fixed it.</p>
+        <div class="reviewer"><div class="avatar">SA</div><div><b>Sarah A.</b><span>Dell XPS — Board Repair</span></div></div>
+      </div>
+      <div class="review-card" data-reveal="fade">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 6.9L12 17.8 5.8 21.1l1.4-6.9L2 9.4l7-.9z"/></svg>
+        </div>
+        <p class="quote">Booked via WhatsApp, dropped off the PS5 with the HDMI issue, had it back the same afternoon. Clear pricing, no upsell. Highly recommend.</p>
+        <div class="reviewer"><div class="avatar">MK</div><div><b>Michael K.</b><span>PS5 — HDMI Port Repair</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                            let count = 0;
-                            const updateCount = () => {
-                                count += inc;
-                                if (count < target) {
-                                    counter.innerText = Math.ceil(count) + "+";
-                                    setTimeout(updateCount, 15);
-                                } else {
-                                    counter.innerText = target + "+";
-                                }
-                            };
-                            updateCount();
-                        });
-                        animated = true;
-                    }
-                });
-            });
+<!-- =========================================================
+     FAQ
+========================================================= -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-head center" data-reveal="fade">
+      <span class="eyebrow-alt eyebrow" style="justify-content:center;display:flex;">FAQ</span>
+      <h2>Questions, answered</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item" data-reveal="fade">
+        <button class="faq-q">How long does a typical repair take?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Most phone and tablet repairs are completed the same day, often within one to two hours. Laptop and console repairs involving parts orders or board-level diagnostics may take one to three working days — we'll confirm a timeframe once your device has been inspected.</div></div>
+      </div>
+      <div class="faq-item" data-reveal="fade">
+        <button class="faq-q">Do you offer a warranty on repairs?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Every repair carries a written warranty covering both parts and workmanship, so if the same issue recurs within the warranty period, we'll put it right free of charge.</div></div>
+      </div>
+      <div class="faq-item" data-reveal="fade">
+        <button class="faq-q">How do I get a quote before booking?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Fill in the booking form or message us on WhatsApp with your device and the issue you're experiencing. We'll respond with an estimated price and timeframe before any work begins — there's no obligation to proceed.</div></div>
+      </div>
+      <div class="faq-item" data-reveal="fade">
+        <button class="faq-q">What brands and devices do you repair?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">We service phones, laptops, tablets and gaming consoles from all major brands, including Apple, Samsung, Dell, HP, Lenovo, Asus, Acer, MSI, Sony, PlayStation, Xbox and Nintendo.</div></div>
+      </div>
+      <div class="faq-item" data-reveal="fade">
+        <button class="faq-q">Is my data safe during a repair?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely. Your data is never accessed, copied, or shared. We recommend backing up important files beforehand as a precaution, and can advise on secure backup options where needed.</div></div>
+      </div>
+      <div class="faq-item" data-reveal="fade">
+        <button class="faq-q">What if my device can't be repaired?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">If, after inspection, a device isn't economically repairable, we'll let you know immediately and there's no charge for the diagnosis. We can also advise on responsible recycling or trade-in options.</div></div>
+      </div>
+      <div class="faq-item" data-reveal="fade">
+        <button class="faq-q">Do you use genuine replacement parts?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">We use genuine-grade components sourced from trusted suppliers, tested for quality and performance before every installation, so your device performs as it should.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            const statsSection = document.querySelector('.stats-wrapper');
-            if (statsSection) statsObserver.observe(statsSection);
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+<footer id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand" aria-label="I Tech Repair Zone home">
+          <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="2" width="44" height="44" rx="12" fill="#0a0a0b" stroke="#e0122a" stroke-width="1.4"/>
+            <path d="M24 10v6M24 32v6M10 24h6M32 24h6M14.6 14.6l4.2 4.2M29.2 29.2l4.2 4.2M33.4 14.6l-4.2 4.2M18.8 29.2l-4.2 4.2" stroke="#e0122a" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="24" cy="24" r="6.5" fill="#e0122a"/>
+          </svg>
+          <span class="brand-name">I TECH <b>REPAIR</b> ZONE</span>
+        </a>
+        <p>Premium electronics repair for phones, laptops, tablets and gaming consoles across the UK.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-7.5h2.5l.4-3H13.5V8.5c0-.9.2-1.5 1.5-1.5h1.6V4.3C16.3 4.2 15.2 4 14 4c-2.5 0-4.2 1.5-4.2 4.3v2.2H7.3v3H9.8V21z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c2.7 0 3 0 4 .1 1 0 1.7.2 2.1.4.5.2.9.5 1.3.9.4.4.6.7.9 1.3.2.4.4 1.1.4 2.1.1 1 .1 1.3.1 4s0 3-.1 4c0 1-.2 1.7-.4 2.1-.2.5-.5.9-.9 1.3-.4.4-.7.6-1.3.9-.4.2-1.1.4-2.1.4-1 .1-1.3.1-4 .1s-3 0-4-.1c-1 0-1.7-.2-2.1-.4a3.6 3.6 0 0 1-1.3-.9 3.6 3.6 0 0 1-.9-1.3c-.2-.4-.4-1.1-.4-2.1-.1-1-.1-1.3-.1-4s0-3 .1-4c0-1 .2-1.7.4-2.1.2-.5.5-.9.9-1.3.4-.4.7-.6 1.3-.9.4-.2 1.1-.4 2.1-.4 1-.1 1.3-.1 4-.1zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg></a>
+          <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M3 3l7.5 9.6L3.4 21H6l5.9-6.6L16.7 21H21l-7.9-10.1L20.3 3h-2.6l-5.4 6-4.6-6H3z"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M14 2h3c.2 1.7 1.3 3.1 3 3.5V8.6c-1.1 0-2.1-.3-3-.9v6.7A5.6 5.6 0 1 1 11.4 9v3.3a2.3 2.3 0 1 0 1.6 2.2V2z"/></svg></a>
+        </div>
+      </div>
 
-            // --- FAQ Accordion Mechanism ---
-            const faqItems = document.querySelectorAll('.faq-item');
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
 
-            faqItems.forEach(item => {
-                const header = item.querySelector('.faq-header');
-                header.addEventListener('click', () => {
-                    const isActive = item.classList.contains('active');
-                    faqItems.forEach(i => i.classList.remove('active'));
-                    if (!isActive) {
-                        item.classList.add('active');
-                    }
-                });
-            });
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">Phone Repair</a></li>
+          <li><a href="#services">Laptop Repair</a></li>
+          <li><a href="#services">Tablet Repair</a></li>
+          <li><a href="#services">Console Repair</a></li>
+          <li><a href="#services">Board-Level Repair</a></li>
+        </ul>
+      </div>
 
-            // --- Button Ripple Interactive Effect ---
-            const buttons = document.querySelectorAll('.btn');
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg> +44 7440 650303</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg> info@itechrepairzone.co.uk</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> 24 High Street, London, UK</li>
+        </ul>
+      </div>
+    </div>
 
-            buttons.forEach(button => {
-                button.addEventListener('click', function (e) {
-                    const x = e.clientX - e.target.getBoundingClientRect().left;
-                    const y = e.clientY - e.target.getBoundingClientRect().top;
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> I Tech Repair Zone. All rights reserved.</span>
+      <span><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a></span>
+    </div>
+  </div>
+</footer>
 
-                    const ripple = document.createElement('span');
-                    ripple.classList.add('ripple');
-                    ripple.style.left = `${x}px`;
-                    ripple.style.top = `${y}px`;
+<!-- =========================================================
+     SCRIPT
+========================================================= -->
+<script>
+(function(){
+  "use strict";
 
-                    this.appendChild(ripple);
+  /* ---- current year ---- */
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-                    setTimeout(() => ripple.remove(), 600);
-                });
-            });
+  /* ---- navbar scroll state ---- */
+  var navbar = document.getElementById('navbar');
+  function onScroll(){
+    if(window.scrollY > 24){ navbar.classList.add('scrolled'); }
+    else{ navbar.classList.remove('scrolled'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
 
-            // --- WhatsApp Form Processing & Formatting ---
-            const repairForm = document.getElementById('repairForm');
+  /* ---- mobile menu ---- */
+  var navToggle = document.getElementById('navToggle');
+  var mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', function(){
+    var active = navToggle.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    navToggle.setAttribute('aria-expanded', active ? 'true' : 'false');
+    document.body.style.overflow = active ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      navToggle.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      navToggle.setAttribute('aria-expanded','false');
+      document.body.style.overflow = '';
+    });
+  });
 
-            repairForm.addEventListener('submit', (e) => {
-                e.preventDefault();
+  /* ---- button ripple effect ---- */
+  document.querySelectorAll('.btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      var rect = btn.getBoundingClientRect();
+      var ripple = document.createElement('span');
+      var size = Math.max(rect.width, rect.height);
+      ripple.className = 'ripple';
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+      btn.appendChild(ripple);
+      setTimeout(function(){ ripple.remove(); }, 650);
+    });
+  });
 
-                const name = document.getElementById('fullname').value;
-                const phone = document.getElementById('phone').value;
-                const device = document.getElementById('devicetype').value;
-                const problem = document.getElementById('problem').value;
-                const details = document.getElementById('details').value || "None provided";
+  /* ---- scroll reveal via IntersectionObserver ---- */
+  var revealEls = document.querySelectorAll('[data-reveal], .tl-step');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15, rootMargin:'0px 0px -60px 0px'});
+  revealEls.forEach(function(el){ io.observe(el); });
 
-                const whatsappNumber = "447440650303";
+  /* ---- FAQ accordion ---- */
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var q = item.querySelector('.faq-q');
+    var a = item.querySelector('.faq-a');
+    q.addEventListener('click', function(){
+      var isActive = item.classList.contains('active');
+      document.querySelectorAll('.faq-item.active').forEach(function(other){
+        if(other !== item){
+          other.classList.remove('active');
+          other.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if(isActive){
+        item.classList.remove('active');
+        a.style.maxHeight = null;
+      } else {
+        item.classList.add('active');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
 
-                const formattedMessage = `New Repair Booking%0A--------------------------------%0AFull Name: ${encodeURIComponent(name)}%0APhone Number: ${encodeURIComponent(phone)}%0ADevice Type: ${encodeURIComponent(device)}%0ADescribe the Problem: ${encodeURIComponent(problem)}%0AAdditional Details: ${encodeURIComponent(details)}%0A--------------------------------`;
+  /* ---- brand marquee: duplicate track for seamless loop ---- */
+  var track = document.getElementById('marqueeTrack');
+  track.innerHTML += track.innerHTML;
 
-                const whatsappURL = `https://wa.me/${whatsappNumber}?text=${formattedMessage}`;
+  /* ---- animated stat counters ---- */
+  function animateCounter(el, target, suffix, duration){
+    var start = 0;
+    var startTime = null;
+    function step(ts){
+      if(!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var value = Math.floor(eased * target);
+      el.textContent = value + suffix;
+      if(progress < 1){ requestAnimationFrame(step); }
+      else { el.textContent = target + suffix; }
+    }
+    requestAnimationFrame(step);
+  }
+  var statEls = document.querySelectorAll('.hero-stats b');
+  var statConfig = [
+    {target:5000, suffix:'+'},
+    {target:98, suffix:'%'},
+    {target:null, suffix:null}
+  ];
+  var statsObserved = false;
+  var statsSection = document.querySelector('.hero-stats');
+  if(statsSection){
+    var statsIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting && !statsObserved){
+          statsObserved = true;
+          statEls.forEach(function(el, i){
+            var cfg = statConfig[i];
+            if(cfg.target !== null){ animateCounter(el, cfg.target, cfg.suffix, 1600); }
+          });
+          statsIO.disconnect();
+        }
+      });
+    }, {threshold:0.4});
+    statsIO.observe(statsSection);
+  }
 
-                window.open(whatsappURL, '_blank');
-            });
-        });
-    </script>
+  /* ---- booking form -> WhatsApp ---- */
+  var WHATSAPP_NUMBER = '447440650303';
+  var form = document.getElementById('bookingForm');
+  var status = document.getElementById('formStatus');
+
+  function showError(id, show){
+    var el = document.getElementById('err-' + id);
+    if(el){ el.style.display = show ? 'block' : 'none'; }
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var fullName = document.getElementById('fullName').value.trim();
+    var phoneNumber = document.getElementById('phoneNumber').value.trim();
+    var deviceType = document.getElementById('deviceType').value.trim();
+    var problem = document.getElementById('problem').value.trim();
+    var details = document.getElementById('details').value.trim();
+
+    var valid = true;
+    showError('fullName', false);
+    showError('phoneNumber', false);
+    showError('deviceType', false);
+    showError('problem', false);
+
+    if(!fullName){ showError('fullName', true); valid = false; }
+    if(!phoneNumber || phoneNumber.replace(/[^0-9+]/g,'').length < 7){ showError('phoneNumber', true); valid = false; }
+    if(!deviceType){ showError('deviceType', true); valid = false; }
+    if(!problem){ showError('problem', true); valid = false; }
+
+    if(!valid) return;
+
+    var message =
+      '--------------------------------\n' +
+      'New Repair Booking\n\n' +
+      'Full Name: ' + fullName + '\n' +
+      'Phone Number: ' + phoneNumber + '\n' +
+      'Device Type: ' + deviceType + '\n' +
+      'Describe the Problem: ' + problem + '\n' +
+      'Additional Details: ' + (details || 'N/A') + '\n' +
+      '--------------------------------';
+
+    var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+
+    status.style.display = 'block';
+    status.textContent = 'Opening WhatsApp with your request…';
+
+    window.open(url, '_blank', 'noopener');
+
+    setTimeout(function(){
+      status.textContent = 'Request sent — check WhatsApp to confirm and send your booking.';
+    }, 900);
+  });
+
+  /* ---- smooth-scroll offset correction for sticky navbar ---- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if(id.length > 1){
+        var target = document.querySelector(id);
+        if(target){
+          e.preventDefault();
+          var y = target.getBoundingClientRect().top + window.pageYOffset - 84;
+          window.scrollTo({top:y, behavior:'smooth'});
+        }
+      }
+    });
+  });
+
+})();
+</script>
 </body>
 </html>
