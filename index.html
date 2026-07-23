@@ -323,6 +323,50 @@ h1.hero-title .accent{
 .why-card p{font-size:.88rem; color:var(--grey-dark);}
 
 /* =========================================================
+   6b. BEFORE / AFTER — drag-reveal repair proof
+========================================================= */
+.before-after{padding:130px 0; background:var(--black);}
+.ba-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+.ba-card{
+  background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--r-lg);
+  padding:18px 18px 26px; transition:transform .4s var(--ease), background .4s var(--ease);
+}
+.ba-card:hover{transform:translateY(-6px); background:var(--glass-bg-strong);}
+.ba-media{
+  position:relative; aspect-ratio:4/3; border-radius:var(--r-md); overflow:hidden;
+  background:#000; touch-action:none; --pos:50; cursor:ew-resize; user-select:none;
+  margin-bottom:20px; border:1px solid var(--line);
+}
+.ba-layer{position:absolute; inset:0; width:100%; height:100%;}
+.ba-layer svg{width:100%; height:100%; display:block;}
+.ba-layer.after{z-index:1;}
+.ba-layer.before{z-index:2; clip-path:inset(0 calc(100% - var(--pos) * 1%) 0 0);}
+.ba-badge{
+  position:absolute; top:14px; z-index:4; padding:6px 14px; border-radius:100px;
+  font-family:var(--font-mono); font-size:.66rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  backdrop-filter:blur(6px); pointer-events:none;
+}
+.ba-badge.before{left:14px; background:rgba(224,18,42,.88); color:#fff;}
+.ba-badge.after{right:14px; background:rgba(255,255,255,.92); color:#0a0a0b;}
+.ba-handle{
+  position:absolute; top:0; bottom:0; left:calc(var(--pos) * 1%); width:2px; z-index:3;
+  background:rgba(255,255,255,.9); transform:translateX(-1px); pointer-events:none;
+  box-shadow:0 0 12px rgba(255,255,255,.6);
+}
+.ba-knob{
+  position:absolute; top:50%; left:calc(var(--pos) * 1%); width:42px; height:42px; z-index:5;
+  transform:translate(-50%,-50%); border-radius:50%; background:var(--red);
+  display:flex; align-items:center; justify-content:center; gap:4px;
+  box-shadow:0 8px 20px -4px rgba(224,18,42,.7), 0 0 0 4px rgba(10,10,11,.5); pointer-events:none;
+}
+.ba-knob svg{width:11px; height:11px; fill:#fff;}
+.ba-caption{display:flex; align-items:baseline; justify-content:space-between; gap:10px; padding:0 4px;}
+.ba-caption h4{font-size:1.02rem;}
+.ba-caption span{font-size:.78rem; color:var(--grey); font-family:var(--font-mono);}
+.ba-hint{font-size:.8rem; color:var(--grey); text-align:center; margin-top:52px; display:flex; align-items:center; justify-content:center; gap:8px;}
+.ba-hint svg{width:16px; height:16px; stroke:var(--red-2);}
+
+/* =========================================================
    7. BRANDS — marquee
 ========================================================= */
 .brands{padding:90px 0; background:var(--black); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
@@ -491,6 +535,7 @@ footer{ background:var(--black-soft); border-top:1px solid var(--line); padding:
   .about-grid{grid-template-columns:repeat(2,1fr);}
   .services-grid{grid-template-columns:repeat(2,1fr);}
   .why-grid{grid-template-columns:repeat(2,1fr);}
+  .ba-grid{grid-template-columns:repeat(2,1fr);}
   .reviews-grid{grid-template-columns:repeat(2,1fr);}
   .booking-wrap{grid-template-columns:1fr; gap:50px;}
   .footer-grid{grid-template-columns:1fr 1fr;}
@@ -504,7 +549,7 @@ footer{ background:var(--black-soft); border-top:1px solid var(--line); padding:
   .timeline::before{left:8%; right:8%;}
 }
 @media (max-width:640px){
-  .about-grid, .services-grid, .why-grid, .reviews-grid{grid-template-columns:1fr;}
+  .about-grid, .services-grid, .why-grid, .ba-grid, .reviews-grid{grid-template-columns:1fr;}
   .hero-stats{grid-template-columns:1fr;}
   .field-row{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr;}
@@ -513,11 +558,52 @@ footer{ background:var(--black-soft); border-top:1px solid var(--line); padding:
   .book-form{padding:28px;}
   .booking-wrap{gap:36px;}
   h2{font-size:2rem;}
-  .about, .services, .why, .process, .booking, .reviews, .faq{padding:90px 0;}
+  .about, .services, .why, .before-after, .process, .booking, .reviews, .faq{padding:90px 0;}
 }
 </style>
 </head>
 <body>
+
+<!-- =========================================================
+     SHARED SVG DEFS — reused by the Before / After illustrations
+========================================================= -->
+<svg width="0" height="0" style="position:absolute; overflow:hidden;" aria-hidden="true">
+  <defs>
+    <!-- shatter / crack pattern drawn in a normalised 0-100 box, scaled per device screen -->
+    <g id="crackLines" fill="none" stroke="#ffffff" stroke-opacity=".6" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="46" cy="18" r="2.6" fill="#ffffff" fill-opacity=".65" stroke="none"/>
+      <path d="M46 18 L34 40 L44 58 L28 72 L38 96"/>
+      <path d="M46 18 L64 34 L54 52 L72 64"/>
+      <path d="M44 58 L62 66 L58 92"/>
+      <path d="M34 40 L14 46"/>
+      <path d="M54 52 L82 44"/>
+      <path d="M28 72 L10 82"/>
+      <path d="M72 64 L90 74"/>
+    </g>
+    <!-- broken-screen darken + noise wash -->
+    <linearGradient id="crackWash" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1c1c1f"/>
+      <stop offset="1" stop-color="#0a0a0b"/>
+    </linearGradient>
+    <!-- healthy screen gradient -->
+    <linearGradient id="cleanWash" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16161a"/>
+      <stop offset="1" stop-color="#050506"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#ffffff" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <!-- clean-screen UI accents, reused across devices -->
+    <g id="uiDots">
+      <circle cx="18" cy="12" r="2.2" fill="#e0122a"/>
+      <rect x="28" y="10" width="34" height="4" rx="2" fill="#4a4a50"/>
+      <rect x="10" y="30" width="80" height="3" rx="1.5" fill="#2a2a2e"/>
+      <rect x="10" y="42" width="55" height="3" rx="1.5" fill="#2a2a2e"/>
+    </g>
+  </defs>
+</svg>
 
 <!-- =========================================================
      NAVBAR
@@ -728,6 +814,127 @@ footer{ background:var(--black-soft); border-top:1px solid var(--line); padding:
         <div><h4>Ongoing Support</h4><p>Friendly help before, during and after your repair — every time.</p></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     BEFORE / AFTER — drag to reveal the repair
+========================================================= -->
+<section class="before-after">
+  <div class="container">
+    <div class="section-head center" data-reveal="fade">
+      <span class="eyebrow" style="justify-content:center;display:flex;">Real Repair Results</span>
+      <h2>Drag the slider — see the damage disappear</h2>
+      <p class="section-sub" style="margin-inline:auto;">Every device tells the same story: broken on arrival, flawless on collection.</p>
+    </div>
+
+    <div class="ba-grid">
+
+      <!-- MOBILE -->
+      <div class="ba-card" data-reveal="fade">
+        <div class="ba-media" role="slider" aria-label="Mobile phone before and after repair" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+          <div class="ba-layer after">
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="300" fill="#0a0a0b"/>
+              <rect x="155" y="20" width="90" height="260" rx="18" fill="#161618" stroke="#3a3a3e" stroke-width="1.5"/>
+              <rect x="163" y="32" width="74" height="210" rx="9" fill="url(#cleanWash)"/>
+              <circle cx="200" cy="252" r="3.5" fill="#3a3a3e"/>
+              <circle cx="200" cy="44" r="1.6" fill="#3a3a3e"/>
+              <use href="#uiDots" transform="translate(172,56) scale(0.62)"/>
+              <rect x="172" y="150" width="60" height="60" rx="10" fill="#1c1c1f" stroke="#e0122a" stroke-opacity=".4"/>
+              <rect x="163" y="32" width="74" height="210" fill="url(#shine)" transform="rotate(18 200 137)"/>
+            </svg>
+          </div>
+          <div class="ba-layer before">
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="300" fill="#0a0a0b"/>
+              <rect x="155" y="20" width="90" height="260" rx="18" fill="#0f0f10" stroke="#2b2b2e" stroke-width="1.5"/>
+              <rect x="163" y="32" width="74" height="210" rx="9" fill="url(#crackWash)"/>
+              <circle cx="200" cy="252" r="3.5" fill="#2b2b2e"/>
+              <use href="#crackLines" transform="translate(163,32) scale(0.74,2.1)"/>
+            </svg>
+          </div>
+          <div class="ba-badge before">Before</div>
+          <div class="ba-badge after">After</div>
+          <div class="ba-handle"></div>
+          <div class="ba-knob"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6z"/></svg><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></div>
+        </div>
+        <div class="ba-caption"><h4>Mobile Phone</h4><span>Screen Repair</span></div>
+      </div>
+
+      <!-- LAPTOP -->
+      <div class="ba-card" data-reveal="fade">
+        <div class="ba-media" role="slider" aria-label="Laptop before and after repair" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+          <div class="ba-layer after">
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="300" fill="#0a0a0b"/>
+              <rect x="80" y="55" width="240" height="150" rx="8" fill="#161618" stroke="#3a3a3e" stroke-width="1.5"/>
+              <rect x="90" y="65" width="220" height="130" rx="4" fill="url(#cleanWash)"/>
+              <use href="#uiDots" transform="translate(102,76) scale(0.9)"/>
+              <rect x="90" y="65" width="220" height="130" fill="url(#shine)" transform="rotate(14 200 130)"/>
+              <path d="M60 205 L340 205 L360 225 Q362 232 352 232 L48 232 Q38 232 40 225 Z" fill="#1c1c1f" stroke="#3a3a3e" stroke-width="1.2"/>
+              <rect x="170" y="212" width="60" height="6" rx="3" fill="#0a0a0b"/>
+            </svg>
+          </div>
+          <div class="ba-layer before">
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="300" fill="#0a0a0b"/>
+              <rect x="80" y="55" width="240" height="150" rx="8" fill="#0f0f10" stroke="#2b2b2e" stroke-width="1.5"/>
+              <rect x="90" y="65" width="220" height="130" rx="4" fill="url(#crackWash)"/>
+              <use href="#crackLines" transform="translate(90,65) scale(2.2,1.3)"/>
+              <path d="M60 205 L340 205 L360 225 Q362 232 352 232 L48 232 Q38 232 40 225 Z" fill="#151516" stroke="#2b2b2e" stroke-width="1.2"/>
+              <rect x="170" y="212" width="60" height="6" rx="3" fill="#0a0a0b"/>
+            </svg>
+          </div>
+          <div class="ba-badge before">Before</div>
+          <div class="ba-badge after">After</div>
+          <div class="ba-handle"></div>
+          <div class="ba-knob"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6z"/></svg><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></div>
+        </div>
+        <div class="ba-caption"><h4>Laptop</h4><span>Display Replacement</span></div>
+      </div>
+
+      <!-- IPAD / TABLET -->
+      <div class="ba-card" data-reveal="fade">
+        <div class="ba-media" role="slider" aria-label="Tablet before and after repair" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+          <div class="ba-layer after">
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="300" fill="#0a0a0b"/>
+              <rect x="120" y="18" width="160" height="264" rx="20" fill="#161618" stroke="#3a3a3e" stroke-width="1.5"/>
+              <rect x="132" y="32" width="136" height="216" rx="10" fill="url(#cleanWash)"/>
+              <circle cx="200" cy="24" r="2" fill="#3a3a3e"/>
+              <rect x="178" y="264" width="44" height="4" rx="2" fill="#3a3a3e"/>
+              <use href="#uiDots" transform="translate(142,44) scale(1.05)"/>
+              <g>
+                <rect x="142" y="90" width="46" height="46" rx="8" fill="#1c1c1f" stroke="#e0122a" stroke-opacity=".4"/>
+                <rect x="196" y="90" width="46" height="46" rx="8" fill="#1c1c1f" stroke="#2a2a2e"/>
+                <rect x="142" y="144" width="46" height="46" rx="8" fill="#1c1c1f" stroke="#2a2a2e"/>
+                <rect x="196" y="144" width="46" height="46" rx="8" fill="#1c1c1f" stroke="#2a2a2e"/>
+              </g>
+              <rect x="132" y="32" width="136" height="216" fill="url(#shine)" transform="rotate(16 200 140)"/>
+            </svg>
+          </div>
+          <div class="ba-layer before">
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="300" fill="#0a0a0b"/>
+              <rect x="120" y="18" width="160" height="264" rx="20" fill="#0f0f10" stroke="#2b2b2e" stroke-width="1.5"/>
+              <rect x="132" y="32" width="136" height="216" rx="10" fill="url(#crackWash)"/>
+              <circle cx="200" cy="24" r="2" fill="#2b2b2e"/>
+              <rect x="178" y="264" width="44" height="4" rx="2" fill="#2b2b2e"/>
+              <use href="#crackLines" transform="translate(132,32) scale(1.36,2.16)"/>
+            </svg>
+          </div>
+          <div class="ba-badge before">Before</div>
+          <div class="ba-badge after">After</div>
+          <div class="ba-handle"></div>
+          <div class="ba-knob"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6z"/></svg><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6z"/></svg></div>
+        </div>
+        <div class="ba-caption"><h4>iPad / Tablet</h4><span>Digitiser Replacement</span></div>
+      </div>
+
+    </div>
+
+    <p class="ba-hint"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h8M8 12l3-3M8 12l3 3M16 12l-3-3M16 12l-3 3"/></svg> Drag any slider left or right to compare</p>
   </div>
 </section>
 
@@ -1085,6 +1292,60 @@ footer{ background:var(--black-soft); border-top:1px solid var(--line); padding:
         a.style.maxHeight = a.scrollHeight + 'px';
       }
     });
+  });
+
+  /* ---- before / after drag sliders ---- */
+  document.querySelectorAll('.ba-media').forEach(function(media){
+    var dragging = false;
+
+    function setPos(clientX){
+      var rect = media.getBoundingClientRect();
+      var pos = ((clientX - rect.left) / rect.width) * 100;
+      pos = Math.max(0, Math.min(100, pos));
+      media.style.setProperty('--pos', pos);
+      media.setAttribute('aria-valuenow', Math.round(pos));
+    }
+
+    media.addEventListener('pointerdown', function(e){
+      dragging = true;
+      media.setPointerCapture(e.pointerId);
+      setPos(e.clientX);
+    });
+    media.addEventListener('pointermove', function(e){
+      if(dragging) setPos(e.clientX);
+    });
+    media.addEventListener('pointerup', function(){ dragging = false; });
+    media.addEventListener('pointercancel', function(){ dragging = false; });
+
+    /* keyboard accessibility */
+    media.addEventListener('keydown', function(e){
+      var current = parseFloat(media.style.getPropertyValue('--pos')) || 50;
+      if(e.key === 'ArrowLeft'){ current = Math.max(0, current - 5); media.style.setProperty('--pos', current); media.setAttribute('aria-valuenow', Math.round(current)); }
+      if(e.key === 'ArrowRight'){ current = Math.min(100, current + 5); media.style.setProperty('--pos', current); media.setAttribute('aria-valuenow', Math.round(current)); }
+    });
+
+    /* gentle auto-demo sweep the first time each card enters view */
+    var demoed = false;
+    var baIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting && !demoed){
+          demoed = true;
+          var t0 = null;
+          function tween(ts){
+            if(!t0) t0 = ts;
+            var p = Math.min((ts - t0) / 1400, 1);
+            var eased = 0.5 - 0.5 * Math.cos(p * Math.PI); /* 0 -> 1 ease */
+            var val = 50 + Math.sin(eased * Math.PI * 2) * 22 * (1 - eased);
+            media.style.setProperty('--pos', 50 + (val - 50));
+            if(p < 1){ requestAnimationFrame(tween); }
+            else { media.style.setProperty('--pos', 50); media.setAttribute('aria-valuenow', 50); }
+          }
+          requestAnimationFrame(tween);
+          baIO.unobserve(media);
+        }
+      });
+    }, {threshold:0.5});
+    baIO.observe(media);
   });
 
   /* ---- brand marquee: duplicate track for seamless loop ---- */
